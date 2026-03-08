@@ -1,0 +1,37 @@
+FROM ubuntu:22.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install dependencies
+RUN apt-get update && apt-get install -y \
+    openmpi-bin \
+    openmpi-common \
+    libopenmpi-dev \
+    openssh-client \
+    git \
+    autoconf \
+    automake \
+    libtool \
+    make \
+    gcc \
+    g++ \
+    pkg-config \
+    wget \
+    && rm -rf /var/lib/apt/lists/*
+
+# Build IOR
+WORKDIR /opt
+
+RUN git clone https://github.com/hpc/ior.git && \
+    cd ior && \
+    ./bootstrap && \
+    ./configure --prefix=/opt/ior && \
+    make -j && \
+    make install
+
+ENV PATH=/opt/ior/bin:$PATH
+# Verify installations
+RUN ior && mdtest
+
+# Default command
+CMD ["/bin/bash"]
