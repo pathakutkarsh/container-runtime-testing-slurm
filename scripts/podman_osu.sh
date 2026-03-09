@@ -28,7 +28,7 @@ echo "========================================="
             --userns=keep-id \
             --net=host --pid=host --ipc=host \
             "$CONTAINER_IMAGE" \
-            osu_latency
+            /usr/local/osu/libexec/osu-micro-benchmarks/mpi/pt2pt/osu_latency
 
 echo ""
 echo "========================================="
@@ -43,7 +43,7 @@ echo "========================================="
             --userns=keep-id \
             --net=host --pid=host --ipc=host \
             "$CONTAINER_IMAGE" \
-            osu_bw
+            /usr/local/libexec/osu-micro-benchmarks/mpi/pt2pt/osu_bw
 
 echo ""
 echo "========================================="
@@ -58,7 +58,7 @@ echo "========================================="
             --userns=keep-id \
             --net=host --pid=host --ipc=host \
             "$CONTAINER_IMAGE" \
-            osu_bibw
+            /usr/local/libexec/osu-micro-benchmarks/mpi/pt2pt/osu_bibw
 
 echo ""
 echo "========================================="
@@ -73,7 +73,7 @@ echo "========================================="
             --userns=keep-id \
             --net=host --pid=host --ipc=host \
             "$CONTAINER_IMAGE" \
-            osu_allreduce
+            /usr/local/libexec/osu-micro-benchmarks/mpi/collective/osu_allreduce
 
 bench_end
 
