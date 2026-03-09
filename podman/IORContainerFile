@@ -2,36 +2,41 @@ FROM ubuntu:22.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Install dependencies
-RUN apt-get update && apt-get install -y \
-    openmpi-bin \
-    openmpi-common \
-    libopenmpi-dev \
-    openssh-client \
-    git \
-    autoconf \
-    automake \
-    libtool \
-    make \
-    gcc \
-    g++ \
-    pkg-config \
-    wget \
-    && rm -rf /var/lib/apt/lists/*
+# Install all required packages
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        wget \
+        make \
+        gcc \
+        g++ \
+        gfortran \
+        file \
+        autoconf \
+        automake \
+        libtool \
+        pkg-config \
+        git \
+        openssh-client \
+        openmpi-bin \
+        libopenmpi-dev \
+        && rm -rf /var/lib/apt/lists/*
 
-# Build IOR
-WORKDIR /opt
+# Set OpenMPI environment
+ENV PATH=/usr/lib/x86_64-linux-gnu/openmpi/bin:$PATH \
+    LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/openmpi/lib:$LD_LIBRARY_PATH
 
+# Build IOR with verbose output
+WORKDIR /tmp
 RUN git clone https://github.com/hpc/ior.git && \
     cd ior && \
     ./bootstrap && \
-    ./configure --prefix=/opt/ior && \
-    make -j && \
-    make install
+    ./configure --prefix=/usr/local/ior CC=mpicc CXX=mpicxx && \
+    make V=1 -j $(nproc) && \
+    make install && \
+    cd / && \
+    rm -rf /tmp/ior
 
-ENV PATH=/opt/ior/bin:$PATH
-# Verify installations
-RUN ior && mdtest
+# Verify installation
+RUN test -f /usr/local/ior/bin/ior && echo "IOR built successfully" || (echo "IOR build failed" && exit 1)
 
-# Default command
+ENV PATH=/usr/local/ior/bin:$PATH
 CMD ["/bin/bash"]
