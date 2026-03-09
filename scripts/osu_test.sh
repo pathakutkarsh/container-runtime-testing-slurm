@@ -4,9 +4,9 @@
 #SBATCH --ntasks=2
 #SBATCH --ntasks-per-node=4
 #SBATCH --time=01:30:00
-#SBATCH --output=/home/cloud/shared_dir/results/slurm_osu_results_%j.out
+#SBATCH --output=./results/slurm_osu_results_%j.out
 
-BASE_DIR=/home/cloud/shared_dir
+BASE_DIR=$(pwd)
 echo "========================================="
 echo "OSU Latency Test"
 echo "========================================="
