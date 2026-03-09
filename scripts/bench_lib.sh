@@ -92,7 +92,7 @@ bench_start() {
     BENCH_OUT_DIR="${CURRENT_DIR}/../results/bench_results/${BENCH_LABEL}_${SLURM_JOB_ID}"
     mkdir -p "$BENCH_OUT_DIR"
 
-    BENCH_SUMMARY_CSV="${BENCH_BASE_DIR}/summary.csv"
+    BENCH_SUMMARY_CSV="${BENCH_OUT_DIR}/summary.csv"
 
     # Create summary CSV header if this is the first run
     if [[ ! -f "$BENCH_SUMMARY_CSV" ]]; then
