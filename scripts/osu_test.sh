@@ -6,6 +6,10 @@
 #SBATCH --time=01:30:00
 #SBATCH --output=./results/slurm_osu_results_%j.out
 
+source ./bench_lib.sh
+
+bench_start slurm
+
 BASE_DIR=$(pwd)
 echo "========================================="
 echo "OSU Latency Test"
@@ -29,6 +33,8 @@ echo "========================================="
 echo "OSU Allreduce Test"
 echo "========================================="
 mpirun -np 2  $BASE_DIR/osu-micro-benchmarks-7.4/c/mpi/collective/blocking/osu_allreduce
+
+bench_end
 
 echo ""
 echo "========================================="
