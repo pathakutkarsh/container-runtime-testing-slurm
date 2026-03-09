@@ -28,7 +28,7 @@ echo "========================================="
             --userns=keep-id \
             --net=host --pid=host --ipc=host \
             "$CONTAINER_IMAGE" \
-            /usr/local/osu/libexec/osu-micro-benchmarks/mpi/pt2pt/osu_latency
+            /usr/local/libexec/osu-micro-benchmarks/mpi/pt2pt/osu_latency
 
 echo ""
 echo "========================================="
