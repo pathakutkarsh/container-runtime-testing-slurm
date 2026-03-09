@@ -19,40 +19,43 @@ BASE_DIR=$(pwd)/../
 echo "========================================="
 echo "OSU Latency Test"
 echo "========================================="
-    mpirun -np 2 \
+    mpirun -np $SLURM_NTASKS \
         --mca orte_tmpdir_base "$TMPDIR" \
         podman run \
-                --rm \
-                --env-host \
-                -v $TMPDIR:$TMPDIR \
-                --net=host --pid=host --ipc=host \
-                "$CONTAINER_IMAGE" \
-                /usr/local/libexec/osu-micro-benchmarks/mpi/pt2pt/osu_latency
+            --rm \
+            --env-host \
+            -v "$TMPDIR:$TMPDIR" \
+            --userns=keep-id \
+            --net=host --pid=host --ipc=host \
+            "$CONTAINER_IMAGE" \
+            /usr/local/libexec/osu-micro-benchmarks/mpi/pt2pt/osu_latency
 
 echo ""
 echo "========================================="
 echo "OSU Bandwidth Test"
 echo "========================================="
-    mpirun -np 2 \
+    mpirun -np $SLURM_NTASKS \
         --mca orte_tmpdir_base "$TMPDIR" \
         podman run \
-                --rm \
-                --env-host \
-                -v $TMPDIR:$TMPDIR \
-                --net=host --pid=host --ipc=host \
-                "$CONTAINER_IMAGE" \
-                /usr/local/libexec/osu-micro-benchmarks/mpi/pt2pt/osu_bw
+            --rm \
+            --env-host \
+            -v "$TMPDIR:$TMPDIR" \
+            --userns=keep-id \
+            --net=host --pid=host --ipc=host \
+            "$CONTAINER_IMAGE" \
+            /usr/local/libexec/osu-micro-benchmarks/mpi/pt2pt/osu_bw
 
 echo ""
 echo "========================================="
 echo "OSU Bidirectional Bandwidth Test"
 echo "========================================="
-    mpirun -np 2 \
+    mpirun -np $SLURM_NTASKS \
         --mca orte_tmpdir_base "$TMPDIR" \
-    podman run \
+        podman run \
             --rm \
             --env-host \
-            -v $TMPDIR:$TMPDIR \
+            -v "$TMPDIR:$TMPDIR" \
+            --userns=keep-id \
             --net=host --pid=host --ipc=host \
             "$CONTAINER_IMAGE" \
             /usr/local/libexec/osu-micro-benchmarks/mpi/pt2pt/osu_bibw
@@ -61,12 +64,13 @@ echo ""
 echo "========================================="
 echo "OSU Allreduce Test"
 echo "========================================="
-    mpirun -np 2 \
+    mpirun -np $SLURM_NTASKS \
         --mca orte_tmpdir_base "$TMPDIR" \
-    podman run \
+        podman run \
             --rm \
             --env-host \
-            -v $TMPDIR:$TMPDIR \
+            -v "$TMPDIR:$TMPDIR" \
+            --userns=keep-id \
             --net=host --pid=host --ipc=host \
             "$CONTAINER_IMAGE" \
             /usr/local/libexec/osu-micro-benchmarks/mpi/collective/osu_allreduce
