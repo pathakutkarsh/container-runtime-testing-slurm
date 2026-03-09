@@ -13,7 +13,7 @@ TMPDIR="/tmp/podman-mpirun-${SLURM_JOB_ID}"
 mkdir -p "$TMPDIR"
 
 BASE_DIR=$(pwd)/..
-TEST_DIR="${BASE_DIR}/ior-${SLURM_JOB_ID}"
+TEST_DIR="/tmp/ior-${SLURM_JOB_ID}"
 mkdir -p "$TEST_DIR"
 
 
