@@ -1,8 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=osu_benchmarks
 #SBATCH --nodes=2
-#SBATCH --ntasks=4
-#SBATCH --ntasks-per-node=2
+#SBATCH --ntasks=2
 #SBATCH --time=01:30:00
 #SBATCH --output=./../results/slurm_osu_results_%j.out
 
