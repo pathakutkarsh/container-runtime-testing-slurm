@@ -1,0 +1,145 @@
+Node List
+slurm-worker-node-01
+[bench_lib] Started collector on slurm-worker-node-01 (pid 20494)
+[bench_lib] Started collector on slurm-worker-node-02 (pid 20495)
+[bench_lib] Benchmark started: label=podman_osu, job=217
+[bench_lib] Nodes: slurm-worker-node-01 slurm-worker-node-02
+=========================================
+OSU Latency Test
+=========================================
+
+# OSU MPI Latency Test v7.4
+# Datatype: MPI_CHAR.
+# Size       Avg Latency(us)
+1                     126.43
+2                     132.58
+4                     127.08
+8                     125.52
+16                    120.36
+32                    125.07
+64                    123.05
+128                   124.13
+256                   128.24
+512                   123.68
+1024                  122.67
+2048                  220.55
+4096                  218.68
+8192                  300.13
+16384                 713.17
+32768                1295.03
+65536                2625.58
+131072               5264.88
+262144              10462.35
+524288              21113.61
+1048576             42120.25
+2097152             84104.52
+4194304            168339.31
+
+=========================================
+OSU Bandwidth Test
+=========================================
+
+# OSU MPI Bandwidth Test v7.4
+# Datatype: MPI_CHAR.
+# Size      Bandwidth (MB/s)
+1                       0.10
+2                       0.17
+4                       0.40
+8                       0.89
+16                      1.63
+32                      2.83
+64                      5.97
+128                    10.94
+256                    20.85
+512                    36.80
+1024                   74.23
+2048                   10.37
+4096                   11.49
+8192                   12.08
+16384                  11.65
+32768                  12.47
+65536                  12.19
+131072                 12.38
+262144                 12.55
+524288                 12.49
+1048576                12.49
+2097152                12.47
+4194304                12.47
+
+=========================================
+OSU Bidirectional Bandwidth Test
+=========================================
+
+# OSU MPI Bi-Directional Bandwidth Test v7.4
+# Datatype: MPI_CHAR.
+# Size      Bandwidth (MB/s)
+1                       0.27
+2                       0.43
+4                       0.98
+8                       2.71
+16                      4.23
+32                      8.33
+64                     17.75
+128                    28.43
+256                    58.84
+512                   108.80
+1024                   42.21
+2048                   26.35
+4096                   24.40
+8192                   24.98
+16384                  25.67
+32768                  24.20
+65536                  24.66
+131072                 24.26
+262144                 16.65
+524288                 14.47
+1048576                13.37
+2097152                13.16
+4194304                12.68
+
+=========================================
+OSU Allreduce Test
+=========================================
+
+# OSU MPI Allreduce Latency Test v7.4
+# Datatype: MPI_CHAR.
+# Size       Avg Latency(us)
+1                     112.75
+2                     236.56
+4                     231.54
+8                     126.58
+16                    118.24
+32                    119.04
+64                    119.80
+128                   123.71
+256                   125.09
+512                   123.71
+1024                  117.77
+2048                  132.43
+4096                  281.58
+8192                  140.73
+16384                 300.91
+32768                 313.56
+65536                5507.62
+131072              10813.87
+262144              21246.32
+524288              41256.74
+1048576             81477.26
+[bench_lib] Sent stop signal to slurm-worker-node-01
+[bench_lib] Sent stop signal to slurm-worker-node-02
+
+=======================================================
+ Benchmark Complete: podman_osu
+=======================================================
+ Nodes collected  : 2 / 2
+ Wall clock       : 3688.221s
+ Exit status      : 0
+-------------------------------------------------------
+ Summary CSV      : /home/cloud/shared_dir/container-runtime-testing-slurm/scripts/../results/bench_results/podman_osu_217/summary.csv
+ Timeseries CSVs  : /home/cloud/shared_dir/container-runtime-testing-slurm/scripts/../results/bench_results/podman_osu_217/<node>_timeseries.csv
+ Sacct CSV        : /home/cloud/shared_dir/container-runtime-testing-slurm/scripts/../results/bench_results/podman_osu_217/sacct.csv
+=======================================================
+
+=========================================
+Completed
+=========================================
