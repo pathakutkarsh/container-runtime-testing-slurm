@@ -26,8 +26,7 @@ echo "========================================="
             --env-host \
             -v /tmp/podman-mpirun:/tmp/podman-mpirun \
             --userns=keep-id \
-            --net=host --pid=host --ipc=host \
-            -v /run/user/$(id -u)/pmix:/run/user/$(id -u)/pmix:ro \
+            --net=host --pid=host --ipc=host \  
             $CONTAINER_IMAGE \
             osu_latency
 
@@ -43,7 +42,6 @@ echo "========================================="
             -v /tmp/podman-mpirun:/tmp/podman-mpirun \
             --userns=keep-id \
             --net=host --pid=host --ipc=host \
-            -v /run/user/$(id -u)/pmix:/run/user/$(id -u)/pmix:ro \
             $CONTAINER_IMAGE \
             osu_bw
 
@@ -59,7 +57,6 @@ echo "========================================="
             -v /tmp/podman-mpirun:/tmp/podman-mpirun \
             --userns=keep-id \
             --net=host --pid=host --ipc=host \
-            -v /run/user/$(id -u)/pmix:/run/user/$(id -u)/pmix:ro \
             $CONTAINER_IMAGE \
             osu_bibw
 
@@ -75,7 +72,6 @@ echo "========================================="
             -v /tmp/podman-mpirun:/tmp/podman-mpirun \
             --userns=keep-id \
             --net=host --pid=host --ipc=host \
-            -v /run/user/$(id -u)/pmix:/run/user/$(id -u)/pmix:ro \
             $CONTAINER_IMAGE \
             osu_allreduce
 
