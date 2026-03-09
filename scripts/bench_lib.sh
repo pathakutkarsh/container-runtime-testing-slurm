@@ -87,7 +87,7 @@ COLLECTOR_SCRIPT
 bench_start() {
     BENCH_LABEL="${1:?bench_start requires a label, e.g. bench_start \"apptainer\"}"
     CURRENT_DIR=$(pwd)
-    BENCH_OUT_DIR="${CURRENT_DIR}/results/bench_results/${BENCH_LABEL}_${SLURM_JOB_ID}"
+    BENCH_OUT_DIR="${CURRENT_DIR}/../results/bench_results/${BENCH_LABEL}_${SLURM_JOB_ID}"
     mkdir -p "$BENCH_OUT_DIR"
 
     BENCH_SUMMARY_CSV="${BENCH_BASE_DIR}/summary.csv"
