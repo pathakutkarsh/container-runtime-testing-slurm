@@ -34,7 +34,7 @@ echo "========================================="
             --rm \
             --env-host \
             -v "$TMPDIR:$TMPDIR" \
-            -v "$NFS_MOUNT:$NFS_MOUNT" \
+            -v "$TEST_DIR:$TEST_DIR" \
             --userns=keep-id \
             --net=host --pid=host --ipc=host \
             "$CONTAINER_IMAGE" \
@@ -51,7 +51,7 @@ echo "========================================="
             --rm \
             --env-host \
             -v "$TMPDIR:$TMPDIR" \
-            -v "$NFS_MOUNT:$NFS_MOUNT" \
+            -v "$TEST_DIR:$TEST_DIR" \
             --userns=keep-id \
             --net=host --pid=host --ipc=host \
             "$CONTAINER_IMAGE" \
@@ -69,7 +69,7 @@ echo "========================================="
             --rm \
             --env-host \
             -v "$TMPDIR:$TMPDIR" \
-            -v "$NFS_MOUNT:$NFS_MOUNT" \
+            -v "$TEST_DIR:$TEST_DIR" \
             --userns=keep-id \
             --net=host --pid=host --ipc=host \
             "$CONTAINER_IMAGE" \
