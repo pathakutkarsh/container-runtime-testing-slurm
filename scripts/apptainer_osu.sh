@@ -1,7 +1,6 @@
 #!/bin/bash
 #SBATCH --job-name=apptainer_benchmark
 #SBATCH --nodes=2
-#SBATCH --ntasks-per-node=4
 #SBATCH --time=00:30:00
 #SBATCH --output=/home/cloud/shared_dir/results/apptainer_osu_benchmark_%j.out
 

@@ -29,4 +29,4 @@ mpirun ior -r -o $TEST_DIR/ior_testfile -t 1m -b 16m -s 16
 
 bench_end
 # Cleanup
-rm -rf $TEST_DIR
+# rm -rf $TEST_DIR
