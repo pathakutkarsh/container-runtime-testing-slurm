@@ -2,44 +2,36 @@ FROM ubuntu:22.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Install OpenMPI 4.1.2, build tools, and CA certificates for git
-RUN apt-get update && apt-get install -y --no-install-recommends \
-        wget \
-        make \
-        gcc \
-        g++ \
-        gfortran \
-        file \
-        autoconf \
-        automake \
-        libtool \
-        pkg-config \
-        git \
-        ca-certificates \
-        openssh-client \
-        openmpi-bin \
-        libopenmpi-dev \
-        && rm -rf /var/lib/apt/lists/*
+# Install dependencies
+RUN apt-get update && apt-get install -y \
+    openmpi-bin \
+    openmpi-common \
+    libopenmpi-dev \
+    openssh-client \
+    git \
+    autoconf \
+    automake \
+    libtool \
+    make \
+    gcc \
+    g++ \
+    pkg-config \
+    wget \
+    && rm -rf /var/lib/apt/lists/*
 
-# Set OpenMPI environment
-ENV PATH=/usr/lib/x86_64-linux-gnu/openmpi/bin:$PATH \
-    LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/openmpi/lib:$LD_LIBRARY_PATH
+# Build IOR
+WORKDIR /opt
 
-# Build IOR from a stable release tag
-WORKDIR /tmp
 RUN git clone https://github.com/hpc/ior.git && \
     cd ior && \
     ./bootstrap && \
-    ./configure && \
-    make && \
-    make install && \
-    cd / && \
-    rm -rf /tmp/ior
+    ./configure --prefix=/opt/ior && \
+    make -j && \
+    make install
 
-# Add IOR to PATH
-ENV PATH=/usr/local/ior/bin:$PATH
+ENV PATH=/opt/ior/bin:$PATH
+# Verify installations
+RUN ior && mdtest
 
-# Verify installation
-RUN ior -h
-
+# Default command
 CMD ["/bin/bash"]
