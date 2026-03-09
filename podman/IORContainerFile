@@ -29,7 +29,6 @@ ENV PATH=/usr/lib/x86_64-linux-gnu/openmpi/bin:$PATH \
 WORKDIR /tmp
 RUN git clone https://github.com/hpc/ior.git && \
     cd ior && \
-    git checkout tags/ior-3.3.0 && \
     ./bootstrap && \
     ./configure --prefix=/usr/local/ior CC=mpicc CXX=mpicxx && \
     make -j $(nproc) && \
