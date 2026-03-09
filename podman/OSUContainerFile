@@ -12,9 +12,13 @@ RUN apt-get update && apt-get install -y \
     openssh-client \
     && rm -rf /var/lib/apt/lists/*
 
-# Set OpenMPI environment variables
-ENV OMPI_ALLOW_RUN_AS_ROOT=1 \
-    OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1
+# Verify OpenMPI version (should be 4.1.2)
+RUN mpirun --version
+
+# Set environment variables
+ENV OMPI_DIR=/usr/lib/x86_64-linux-gnu/openmpi \
+    PATH=/usr/lib/x86_64-linux-gnu/openmpi/bin:$PATH \
+    LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/openmpi/lib:$LD_LIBRARY_PATH
 
 # Download and build OSU Micro-Benchmarks
 WORKDIR /opt
