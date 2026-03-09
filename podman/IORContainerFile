@@ -2,7 +2,7 @@ FROM ubuntu:22.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Install all required packages
+# Install OpenMPI 4.1.2, build tools, and CA certificates for git
 RUN apt-get update && apt-get install -y --no-install-recommends \
         wget \
         make \
@@ -15,6 +15,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         libtool \
         pkg-config \
         git \
+        ca-certificates \
         openssh-client \
         openmpi-bin \
         libopenmpi-dev \
@@ -24,11 +25,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 ENV PATH=/usr/lib/x86_64-linux-gnu/openmpi/bin:$PATH \
     LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/openmpi/lib:$LD_LIBRARY_PATH
 
-# Build IOR with verbose output
+# Build IOR from a stable release tag
 WORKDIR /tmp
 RUN git clone https://github.com/hpc/ior.git && \
     cd ior && \
-    git checkout tags/ior-3.3.0 && \          # Use a stable release
+    git checkout tags/ior-3.3.0 && \
     ./bootstrap && \
     ./configure --prefix=/usr/local/ior CC=mpicc CXX=mpicxx && \
     make -j $(nproc) && \
@@ -36,8 +37,10 @@ RUN git clone https://github.com/hpc/ior.git && \
     cd / && \
     rm -rf /tmp/ior
 
-# Verify installation
-RUN test -f /usr/local/ior/bin/ior && echo "IOR built successfully" || (echo "IOR build failed" && exit 1)
-
+# Add IOR to PATH
 ENV PATH=/usr/local/ior/bin:$PATH
+
+# Verify installation
+RUN ior -h
+
 CMD ["/bin/bash"]
