@@ -10,7 +10,7 @@ source ./bench_lib.sh
 
 bench_start slurm_ior
 
-BASE_DIR=$(pwd)/../
+BASE_DIR=$(pwd)/..
 
 TEST_DIR=$BASE_DIR/ior_test
 mkdir -p $TEST_DIR
@@ -19,7 +19,7 @@ sleep 2
 echo "========================================="
 echo "IOR Write Test"
 echo "========================================="
-mpirun ior -w -o $TEST_DIR/ior_testfile -t 1m -b 16m -s 16
+mpirun ior -k -w -o $TEST_DIR/ior_testfile -t 1m -b 16m -s 16
 
 echo ""
 echo "========================================="
