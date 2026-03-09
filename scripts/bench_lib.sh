@@ -32,16 +32,18 @@
 #   bench_end
 # ─────────────────────────────────────────────────────────────────────────────
 
-# Internal per-node collector script — written to a temp file and sent via ssh
+# Internal per-node collector — written to a temp file so srun can execute it
+# independently on each node without needing ssh
 _bench_write_collector_script() {
     local SCRIPT_PATH="$1"
     cat > "$SCRIPT_PATH" << 'COLLECTOR_SCRIPT'
 #!/bin/bash
+# Runs on each node via srun --overlap, one instance per node
 OUT_DIR="$1"
 NODE=$(hostname -s)
-TIMESERIES_CSV="$OUT_DIR/${NODE}_timeseries.csv"
-SUMMARY_TMP="$OUT_DIR/${NODE}_summary.tmp"
-STOP_FILE="$OUT_DIR/.stop_${NODE}"
+TIMESERIES_CSV="${OUT_DIR}/${NODE}_timeseries.csv"
+SUMMARY_TMP="${OUT_DIR}/${NODE}_summary.tmp"
+STOP_FILE="${OUT_DIR}/.stop_${NODE}"
 
 echo "timestamp_ms,epoch_s,cpu_percent,mem_used_kb,mem_available_kb,mem_total_kb" \
     > "$TIMESERIES_CSV"
@@ -98,18 +100,21 @@ bench_start() {
             > "$BENCH_SUMMARY_CSV"
     fi
 
-    # Write the collector script to a shared path all nodes can reach
+    # Write the collector script to shared storage so all nodes can read it
     BENCH_COLLECTOR_SCRIPT="$BENCH_OUT_DIR/.node_collector.sh"
     _bench_write_collector_script "$BENCH_COLLECTOR_SCRIPT"
 
-    # Launch one collector per node via ssh — does not consume any Slurm task slots
-    # Slurm sets up passwordless ssh between allocated nodes automatically
-    BENCH_COLLECTOR_PIDS=()
-    for NODE in $(scontrol show hostnames "$SLURM_NODELIST"); do
-        ssh -o BatchMode=yes "$NODE" \
-            "bash '$BENCH_COLLECTOR_SCRIPT' '$BENCH_OUT_DIR'" &
-        BENCH_COLLECTOR_PIDS+=($!)
-    done
+    # Use srun --overlap to run one collector per node in the background.
+    # --overlap lets this step share resources with the main job step.
+    # --ntasks=$SLURM_NNODES ensures exactly one task per node.
+    # --nodes and --ntasks-per-node=1 pins one process to each node.
+    srun --overlap \
+         --nodes="$SLURM_NNODES" \
+         --ntasks="$SLURM_NNODES" \
+         --ntasks-per-node=1 \
+         --cpus-per-task=1 \
+         bash "$BENCH_COLLECTOR_SCRIPT" "$BENCH_OUT_DIR" &
+    BENCH_SRUN_PID=$!
 
     BENCH_START_TIME=$(date +%s%3N)
 
@@ -125,16 +130,15 @@ bench_end() {
     local WALL_S
     WALL_S=$(echo "scale=3; $WALL_MS / 1000" | bc)
 
-    # Signal each collector to stop by creating its stop file via ssh
+    # Signal each collector to stop by creating its stop file.
+    # Since all nodes share the same filesystem, touching the file
+    # on the head node is visible to all nodes immediately.
     for NODE in $(scontrol show hostnames "$SLURM_NODELIST"); do
-        ssh -o StrictHostKeyChecking=no -o BatchMode=yes "$NODE" \
-            "touch '$BENCH_OUT_DIR/.stop_${NODE}'" 2>/dev/null
+        touch "$BENCH_OUT_DIR/.stop_${NODE}"
     done
 
-    # Wait for all collectors to finish
-    for PID in "${BENCH_COLLECTOR_PIDS[@]}"; do
-        wait "$PID" 2>/dev/null
-    done
+    # Wait for all collectors to finish writing their summary files
+    wait "$BENCH_SRUN_PID" 2>/dev/null
 
     local TIMESTAMP
     TIMESTAMP=$(date --iso-8601=seconds)
