@@ -109,10 +109,9 @@ bench_start() {
     # --ntasks=$SLURM_NNODES ensures exactly one task per node.
     # --nodes and --ntasks-per-node=1 pins one process to each node.
     srun --overlap \
-         --nodes="$SLURM_NNODES" \
-         --ntasks="$SLURM_NNODES" \
+         --nodes=2 \
+         --ntasks=2 \
          --ntasks-per-node=1 \
-         --cpus-per-task=1 \
          bash "$BENCH_COLLECTOR_SCRIPT" "$BENCH_OUT_DIR" &
     BENCH_SRUN_PID=$!
 
