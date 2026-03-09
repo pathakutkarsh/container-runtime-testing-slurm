@@ -4,7 +4,7 @@
 #SBATCH --ntasks=4
 #SBATCH --ntasks-per-node=4
 #SBATCH --time=00:30:00
-#SBATCH --output=./../results/podman_simple_%j.out
+#SBATCH --output=./../results/podman_ior_mdtest_%j.out
 
 # Create test directory
 CONTAINER_IMAGE="localhost/ior-benchmark:latest"
@@ -38,7 +38,7 @@ echo "========================================="
             --userns=keep-id \
             --net=host --pid=host --ipc=host \
             "$CONTAINER_IMAGE" \
-            ior -k -w -o $TEST_DIR/ior_testfile -t 1m -b 16m -s 16
+            /opt/ior/bin/ior -k -w -o $TEST_DIR/ior_testfile -t 1m -b 16m -s 16
 
 echo ""
 echo "========================================="
@@ -55,7 +55,7 @@ echo "========================================="
             --userns=keep-id \
             --net=host --pid=host --ipc=host \
             "$CONTAINER_IMAGE" \
-            ior -r -o $TEST_DIR/ior_testfile -t 1m -b 16m -s 16
+            /opt/ior/bin/ior -r -o $TEST_DIR/ior_testfile -t 1m -b 16m -s 16
 
 
 echo "========================================="
@@ -73,7 +73,7 @@ echo "========================================="
             --userns=keep-id \
             --net=host --pid=host --ipc=host \
             "$CONTAINER_IMAGE" \
-            mdtest -d $TEST_DIR/mdtest -n 1000 -i 3 -u -L -F
+            /opt/ior/bin/mdtest -d $TEST_DIR/mdtest -n 1000 -i 3 -u -L -F
 
 bench_end
 echo ""
