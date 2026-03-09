@@ -38,7 +38,7 @@ echo "========================================="
             --userns=keep-id \
             --net=host --pid=host --ipc=host \
             "$CONTAINER_IMAGE" \
-            mpirun ior -k -w -o $TEST_DIR/ior_testfile -t 1m -b 16m -s 16
+            ior -k -w -o $TEST_DIR/ior_testfile -t 1m -b 16m -s 16
 
 echo ""
 echo "========================================="
@@ -55,7 +55,7 @@ echo "========================================="
             --userns=keep-id \
             --net=host --pid=host --ipc=host \
             "$CONTAINER_IMAGE" \
-            mpirun ior -r -o $TEST_DIR/ior_testfile -t 1m -b 16m -s 16
+            ior -r -o $TEST_DIR/ior_testfile -t 1m -b 16m -s 16
 
 
 echo "========================================="
