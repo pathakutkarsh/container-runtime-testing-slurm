@@ -104,7 +104,8 @@ bench_start() {
     # Save the full node list so bench_end uses the same list
     # without any variable name collision with inner loops
     BENCH_NODELIST=( $(scontrol show hostnames "$SLURM_NODELIST") )
-
+    echo "Node List"
+    echo "$BENCH_NODELIST"
     # SSH user — defaults to current user, override with: export BENCH_SSH_USER=cloud
     BENCH_SSH_USER="${BENCH_SSH_USER:-$(whoami)}"
 
