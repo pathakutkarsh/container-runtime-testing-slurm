@@ -10,7 +10,7 @@ source ./bench_lib.sh
 
 bench_start slurm
 
-BASE_DIR=$(pwd)
+BASE_DIR=$(pwd)/../
 
 echo "========================================="
 echo "OSU Latency Test"
