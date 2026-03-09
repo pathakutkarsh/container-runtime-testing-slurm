@@ -106,7 +106,7 @@ bench_start() {
     # Slurm sets up passwordless ssh between allocated nodes automatically
     BENCH_COLLECTOR_PIDS=()
     for NODE in $(scontrol show hostnames "$SLURM_NODELIST"); do
-        ssh -o StrictHostKeyChecking=no -o BatchMode=yes "$NODE" \
+        ssh -o BatchMode=yes "$NODE" \
             "bash '$BENCH_COLLECTOR_SCRIPT' '$BENCH_OUT_DIR'" &
         BENCH_COLLECTOR_PIDS+=($!)
     done
