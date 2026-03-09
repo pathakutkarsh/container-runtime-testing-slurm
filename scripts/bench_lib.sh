@@ -25,23 +25,22 @@
 #   #SBATCH ...your normal directives...
 #
 #   source /path/to/bench_lib.sh
-#   bench_start "apptainer"
+#   bench_start "slurm"
 #
-#   mpirun -np 2 ./my_workload     # ← your actual workload unchanged
+#   mpirun -np 2 ./my_workload     # your actual workload unchanged
 #
 #   bench_end
 # ─────────────────────────────────────────────────────────────────────────────
 
-# Internal per-node collector script — written to a temp file and sent via ssh
 _bench_write_collector_script() {
     local SCRIPT_PATH="$1"
     cat > "$SCRIPT_PATH" << 'COLLECTOR_SCRIPT'
 #!/bin/bash
 OUT_DIR="$1"
 NODE=$(hostname -s)
-TIMESERIES_CSV="$OUT_DIR/${NODE}_timeseries.csv"
-SUMMARY_TMP="$OUT_DIR/${NODE}_summary.tmp"
-STOP_FILE="$OUT_DIR/.stop_${NODE}"
+TIMESERIES_CSV="${OUT_DIR}/${NODE}_timeseries.csv"
+SUMMARY_TMP="${OUT_DIR}/${NODE}_summary.tmp"
+STOP_FILE="${OUT_DIR}/.stop_${NODE}"
 
 echo "timestamp_ms,epoch_s,cpu_percent,mem_used_kb,mem_available_kb,mem_total_kb" \
     > "$TIMESERIES_CSV"
@@ -85,50 +84,63 @@ COLLECTOR_SCRIPT
 }
 
 bench_start() {
-    BENCH_LABEL="${1:?bench_start requires a label, e.g. bench_start \"apptainer\"}"
+    BENCH_LABEL="${1:?bench_start requires a label, e.g. bench_start \"slurm\"}"
     CURRENT_DIR=$(pwd)
     BENCH_OUT_DIR="${CURRENT_DIR}/../results/bench_results/${BENCH_LABEL}_${SLURM_JOB_ID}"
     mkdir -p "$BENCH_OUT_DIR"
 
-    BENCH_SUMMARY_CSV="${BENCH_BASE_DIR}/summary.csv"
+    # Clean up any stop files from a previous run in this directory
+    rm -f "$BENCH_OUT_DIR"/.stop_*
 
-    # Create summary CSV header if this is the first run
+    BENCH_SUMMARY_CSV="${BENCH_OUT_DIR}/summary.csv"
     if [[ ! -f "$BENCH_SUMMARY_CSV" ]]; then
         echo "job_id,label,node,wall_clock_s,peak_cpu_percent,avg_cpu_percent,peak_mem_used_kb,exit_status,timestamp" \
             > "$BENCH_SUMMARY_CSV"
     fi
 
-    # Write the collector script to a shared path all nodes can reach
     BENCH_COLLECTOR_SCRIPT="$BENCH_OUT_DIR/.node_collector.sh"
     _bench_write_collector_script "$BENCH_COLLECTOR_SCRIPT"
 
-    # Launch one collector per node via ssh — does not consume any Slurm task slots
-    # Slurm sets up passwordless ssh between allocated nodes automatically
+    # Save the full node list so bench_end uses the same list
+    # without any variable name collision with inner loops
+    BENCH_NODELIST=( $(scontrol show hostnames "$SLURM_NODELIST") )
+
+    # SSH user — defaults to current user, override with: export BENCH_SSH_USER=cloud
+    BENCH_SSH_USER="${BENCH_SSH_USER:-$(whoami)}"
+
+    # Launch one collector per node via ssh in the background
     BENCH_COLLECTOR_PIDS=()
-    for NODE in $(scontrol show hostnames "$SLURM_NODELIST"); do
-        ssh -o StrictHostKeyChecking=no -o BatchMode=yes "$NODE" \
-            "bash '$BENCH_COLLECTOR_SCRIPT' '$BENCH_OUT_DIR'" &
+    for BENCH_NODE in "${BENCH_NODELIST[@]}"; do
+        ssh -i ~/.ssh/id_rsa \
+            -o StrictHostKeyChecking=no \
+            -o BatchMode=yes \
+            "${BENCH_SSH_USER}@${BENCH_NODE}" \
+            "bash '${BENCH_COLLECTOR_SCRIPT}' '${BENCH_OUT_DIR}'" &
         BENCH_COLLECTOR_PIDS+=($!)
+        echo "[bench_lib] Started collector on ${BENCH_NODE} (pid $!)"
     done
 
-    BENCH_START_TIME=$(date +%s%3N)
+    # Give collectors a moment to initialise before workload begins
+    sleep 1
 
+    BENCH_START_TIME=$(date +%s%3N)
     echo "[bench_lib] Benchmark started: label=${BENCH_LABEL}, job=${SLURM_JOB_ID}"
-    echo "[bench_lib] Collecting metrics on nodes: ${SLURM_NODELIST}"
+    echo "[bench_lib] Nodes: ${BENCH_NODELIST[*]}"
 }
 
 bench_end() {
-    local EXIT_STATUS=${1:-$?}
+    local BENCH_EXIT_STATUS=${1:-$?}   # use a prefixed name to avoid collision
 
     BENCH_END_TIME=$(date +%s%3N)
     local WALL_MS=$(( BENCH_END_TIME - BENCH_START_TIME ))
     local WALL_S
     WALL_S=$(echo "scale=3; $WALL_MS / 1000" | bc)
 
-    # Signal each collector to stop by creating its stop file via ssh
-    for NODE in $(scontrol show hostnames "$SLURM_NODELIST"); do
-        ssh -o StrictHostKeyChecking=no -o BatchMode=yes "$NODE" \
-            "touch '$BENCH_OUT_DIR/.stop_${NODE}'" 2>/dev/null
+    # Touch each node's stop file directly on the shared filesystem —
+    # no ssh needed, the file appears on every node immediately
+    for BENCH_NODE in "${BENCH_NODELIST[@]}"; do
+        touch "${BENCH_OUT_DIR}/.stop_${BENCH_NODE}"
+        echo "[bench_lib] Sent stop signal to ${BENCH_NODE}"
     done
 
     # Wait for all collectors to finish
@@ -139,29 +151,28 @@ bench_end() {
     local TIMESTAMP
     TIMESTAMP=$(date --iso-8601=seconds)
 
-    # Read each node's summary tmp and append one row per node to summary CSV
+    # Append one row per node to summary CSV
     local NODE_COUNT=0
     for TMP in "$BENCH_OUT_DIR"/*_summary.tmp; do
         [[ -f "$TMP" ]] || continue
-        local NODE PEAK_CPU AVG_CPU PEAK_MEM
-        IFS=',' read -r NODE PEAK_CPU AVG_CPU PEAK_MEM < "$TMP"
-        echo "${SLURM_JOB_ID},${BENCH_LABEL},${NODE},${WALL_S},${PEAK_CPU},${AVG_CPU},${PEAK_MEM},${EXIT_STATUS},${TIMESTAMP}" \
+        local BENCH_NODE_NAME PEAK_CPU AVG_CPU PEAK_MEM
+        IFS=',' read -r BENCH_NODE_NAME PEAK_CPU AVG_CPU PEAK_MEM < "$TMP"
+        echo "${SLURM_JOB_ID},${BENCH_LABEL},${BENCH_NODE_NAME},${WALL_S},${PEAK_CPU},${AVG_CPU},${PEAK_MEM},${BENCH_EXIT_STATUS},${TIMESTAMP}" \
             >> "$BENCH_SUMMARY_CSV"
         NODE_COUNT=$(( NODE_COUNT + 1 ))
     done
 
-    # Dump full Slurm accounting data once from the head node
     sacct -j "$SLURM_JOB_ID" \
         --format=JobID,JobName,Elapsed,CPUTime,AveCPU,MinCPU,MaxRSS,MaxVMSize,AveRSS,AveVMSize,TotalCPU,UserCPU,SystemCPU,NNodes,NCPUS,ExitCode \
-        --units=M -P > "$BENCH_OUT_DIR/sacct.csv"
+        --units=M -P > "$BENCH_OUT_DIR/sacct.csv" 2>/dev/null
 
     echo ""
     echo "======================================================="
     echo " Benchmark Complete: $BENCH_LABEL"
     echo "======================================================="
-    echo " Nodes collected  : ${NODE_COUNT} (${SLURM_NODELIST})"
+    echo " Nodes collected  : ${NODE_COUNT} / ${#BENCH_NODELIST[@]}"
     echo " Wall clock       : ${WALL_S}s"
-    echo " Exit status      : ${EXIT_STATUS}"
+    echo " Exit status      : ${BENCH_EXIT_STATUS}"
     echo "-------------------------------------------------------"
     echo " Summary CSV      : $BENCH_SUMMARY_CSV"
     echo " Timeseries CSVs  : $BENCH_OUT_DIR/<node>_timeseries.csv"
