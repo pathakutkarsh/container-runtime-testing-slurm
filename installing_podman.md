@@ -3,7 +3,6 @@
 
 Use the following commands to build podman from source
 
-
 ```bash
 
 sudo apt-get update
