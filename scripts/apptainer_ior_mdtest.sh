@@ -14,6 +14,7 @@ mkdir -p "$TEST_DIR"
 source ./bench_lib.sh
 
 MPIRUN="mpirun \
+    --np $SLURM_NTASKS \
     --map-by ppr:2:node \
     --bind-to core"
 
