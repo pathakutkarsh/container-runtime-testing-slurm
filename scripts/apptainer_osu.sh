@@ -8,8 +8,11 @@
 BASE_DIR=$(pwd)/../
 TMPDIR="/tmp/apptainer-mpirun-$$"
 CONTAINER=$BASE_DIR/apptainer/osu.sif
+ENV_FILE="$TMPDIR/host.env"
 
 mkdir -p $TMPDIR
+env > $ENV_FILE
+
 source ./bench_lib.sh
 
 MPIRUN="mpirun \
@@ -22,7 +25,7 @@ APPTAINER_RUN="apptainer exec \
     --bind $BASE_DIR:$BASE_DIR \
     --bind $TMPDIR:$TMPDIR \
     --sharens \
-    --env-file <(env) \
+    --env-file $ENV_FILE \
     $CONTAINER"
 
 bench_start apptainer_osu
