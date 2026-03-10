@@ -7,7 +7,7 @@
 
 
 BASE_DIR=$(pwd)/../
-TEST_DIR=$BASE_DIR/osu_apptainer
+TMPDIR="/tmp/apptainer-mpirun-$$"
 CONTAINER=$BASE_DIR/apptainer/osu.sif
 
 mkdir -p $TEST_DIR
@@ -23,7 +23,10 @@ echo "========================================="
 # Use host MPI (mpirun from system), but run OSU binary inside container
 mpirun -np 2 \
   --bind-to core \
+  --map-by ppr:1:node \
   apptainer exec \
+        --pid --ipc \
+        --bind "$TMPDIR:$TMPDIR" \
     $CONTAINER \
     osu_latency
 
@@ -34,7 +37,10 @@ echo "========================================="
 
 mpirun -np 2 \
   --bind-to core \
+  --map-by ppr:1:node \
   apptainer exec \
+        --pid --ipc \
+        --bind "$TMPDIR:$TMPDIR" \
     $CONTAINER \
     osu_bw
 
@@ -45,7 +51,10 @@ echo "========================================="
 
 mpirun -np 2 \
   --bind-to core \
+  --map-by ppr:1:node \
   apptainer exec \
+        --pid --ipc \
+        --bind "$TMPDIR:$TMPDIR" \
     $CONTAINER \
     osu_bibw
 
@@ -56,7 +65,10 @@ echo "========================================="
 
 mpirun -np 2 \
   --bind-to core \
+  --map-by ppr:1:node \
   apptainer exec \
+        --pid --ipc \
+        --bind "$TMPDIR:$TMPDIR" \
     $CONTAINER \
     osu_allreduce
 
