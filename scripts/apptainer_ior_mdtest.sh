@@ -13,7 +13,7 @@ mkdir -p $TEST_DIR
 
 source ./bench_lib.sh
 
-bench_start apptainer_osu
+bench_start apptainer_ior
 
 
 echo "========================================="
