@@ -11,7 +11,6 @@ CONTAINER=$BASE_DIR/apptainer/osu.sif
 
 mkdir -p $TMPDIR
 source ./bench_lib.sh
-bench_start apptainer_osu
 
 # Use host MPI libs inside container
 HOST_MPI_DIR=$(dirname $(which mpirun))/..
@@ -20,6 +19,7 @@ HOST_MPI_LIBDIR=$(find $HOST_MPI_DIR -name "libmpi.so*" -printf "%h\n" 2>/dev/nu
 APPTAINER_RUN="apptainer exec \
     --bind $BASE_DIR:$BASE_DIR \
     --bind $TMPDIR:$TMPDIR \
+    --bind /dev/shm:/dev/shm \
     --bind $HOST_MPI_DIR:$HOST_MPI_DIR \
     ${HOST_MPI_LIBDIR:+--bind $HOST_MPI_LIBDIR:$HOST_MPI_LIBDIR} \
     --env LD_LIBRARY_PATH=$HOST_MPI_LIBDIR:$LD_LIBRARY_PATH \
@@ -30,6 +30,8 @@ MPIRUN="mpirun \
     --bind-to core \
     --mca btl self,tcp \
     --mca orte_tmpdir_base $TMPDIR"
+
+bench_start apptainer_osu
 
 echo "========================================="
 echo "OSU Latency Test (Using Host MPI)"
