@@ -13,7 +13,7 @@ mkdir -p $TEST_DIR
 
 source ./bench_lib.sh
 
-bench_start podman_osu
+bench_start apptainer_osu
 
 echo "========================================="
 echo "OSU Latency Test (Using Host MPI)"
