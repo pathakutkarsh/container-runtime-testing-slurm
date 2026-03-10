@@ -15,8 +15,7 @@ source ./bench_lib.sh
 MPIRUN="mpirun \
     --np $SLURM_NTASKS \
     --bind-to core \
-    --mca btl self,tcp \
-    --mca orte_tmpdir_base $TMPDIR"
+    --mca btl self,tcp"
 
 APPTAINER_RUN="apptainer exec \
     --bind $BASE_DIR:$BASE_DIR \
