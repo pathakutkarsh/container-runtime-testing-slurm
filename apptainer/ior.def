@@ -21,6 +21,7 @@ From: ubuntu:22.04
     cd /opt
     git clone https://github.com/hpc/ior.git
     cd ior
+    git checkout 3.3.0
     ./bootstrap
     ./configure --prefix=/usr/local
     make -j$(nproc) && make install
