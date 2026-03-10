@@ -22,6 +22,7 @@ echo "========================================="
 # Use host MPI (mpirun from system), but run OSU binary inside container
 mpirun -np 2 \
   --bind-to core \
+  --mca btl self,tcp \
   apptainer exec \
   --pid --ipc \
     $CONTAINER \
@@ -34,6 +35,7 @@ echo "========================================="
 
 mpirun -np 2 \
   --bind-to core \
+  --mca btl self,tcp \
   apptainer exec \
   --pid --ipc \
     $CONTAINER \
@@ -46,6 +48,7 @@ echo "========================================="
 
 mpirun -np 2 \
   --bind-to core \
+  --mca btl self,tcp \
   apptainer exec \
   --pid --ipc \
     $CONTAINER \
@@ -58,6 +61,7 @@ echo "========================================="
 
 mpirun -np 2 \
   --bind-to core \
+  --mca btl self,tcp \
   apptainer exec \
   --pid --ipc \
     $CONTAINER \
