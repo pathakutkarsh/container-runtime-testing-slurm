@@ -15,8 +15,7 @@ source ./bench_lib.sh
 
 MPIRUN="mpirun \
     --np $SLURM_NTASKS \
-    --bind-to core \
-    --mca btl self,tcp"
+    --bind-to core
 
 APPTAINER_RUN="apptainer exec \
     --bind $BASE_DIR:$BASE_DIR \
@@ -29,13 +28,13 @@ echo "========================================="
 echo "IOR WRITE TEST (Apptainer)"
 echo "========================================="
 $MPIRUN $APPTAINER_RUN \
-    ior -a POSIX -w -o $TEST_DIR/ior_testfile -b 128m -t 512k -s 8 -C -Q 1
+    ior -a POSIX -w -k -o $TEST_DIR/ior_testfile -b 128m -t 512k -s 8 -C -Q 1
 
 echo "========================================="
 echo "IOR READ TEST (Apptainer)"
 echo "========================================="
 $MPIRUN $APPTAINER_RUN \
-    ior -a POSIX -w -r -o $TEST_DIR/ior_testfile -b 128m -t 512k -s 8 -C -Q 1
+    ior -a POSIX -r -o $TEST_DIR/ior_testfile -b 128m -t 512k -s 8 -C -Q 1
 
 echo "========================================="
 echo "MDTEST (Apptainer)"
