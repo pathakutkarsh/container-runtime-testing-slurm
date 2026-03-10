@@ -23,7 +23,7 @@ echo "========================================="
 mpirun -np 2 \
   --bind-to core \
   apptainer exec \
-  --net --pid --ipc \
+  --pid --ipc \
     $CONTAINER \
     osu_latency
 
@@ -35,7 +35,7 @@ echo "========================================="
 mpirun -np 2 \
   --bind-to core \
   apptainer exec \
-  --net --pid --ipc \
+  --pid --ipc \
     $CONTAINER \
     osu_bw
 
@@ -47,7 +47,7 @@ echo "========================================="
 mpirun -np 2 \
   --bind-to core \
   apptainer exec \
-  --net --pid --ipc \
+  --pid --ipc \
     $CONTAINER \
     osu_bibw
 
@@ -59,7 +59,7 @@ echo "========================================="
 mpirun -np 2 \
   --bind-to core \
   apptainer exec \
-  --net --pid --ipc \
+  --pid --ipc \
     $CONTAINER \
     osu_allreduce
 
