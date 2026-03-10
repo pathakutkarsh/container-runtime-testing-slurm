@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=apptainer_benchmark
 #SBATCH --nodes=2
-#SBATCH --ntasks-per-node=1
+#SBATCH --ntasks=2
 #SBATCH --time=00:30:00
 #SBATCH --output=./../results/apptainer_osu_benchmark_%j.out
 
@@ -13,7 +13,7 @@ mkdir -p $TMPDIR
 source ./bench_lib.sh
 
 MPIRUN="mpirun \
-    --np $SLURM_NTASKS \
+    --np 2 \
     --bind-to core \
     --mca btl self,tcp"
 
