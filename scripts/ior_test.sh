@@ -28,6 +28,19 @@ echo "IOR Read Test"
 echo "========================================="
 mpirun ior -r -o $TEST_DIR/ior_testfile -t 1m -b 16m -s 16
 
+echo "========================================="
+echo "MDTEST (NFS)"
+echo "========================================="
+
+mpirun mdtest -d $TEST_DIR/mdtest -n 1000 -i 3 -u -L -F
+
 bench_end
+
+echo ""
+echo "========================================="
+echo "Completed"
+echo "========================================="
+
+sleep 1
 # Cleanup
-# rm -rf $TEST_DIR
+rm -rf $TEST_DIR
