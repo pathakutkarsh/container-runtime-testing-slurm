@@ -1,0 +1,167 @@
+Node List
+slurm-worker-node-01
+[bench_lib] Started collector on slurm-worker-node-01 (pid 524525)
+[bench_lib] Started collector on slurm-worker-node-02 (pid 524526)
+[bench_lib] Benchmark started: label=apptainer_ior, job=264
+[bench_lib] Nodes: slurm-worker-node-01 slurm-worker-node-02
+=========================================
+IOR WRITE TEST (Apptainer)
+=========================================
+--------------------------------------------------------------------------
+WARNING: The default btl_vader_single_copy_mechanism CMA is
+not available due to different user namespaces.
+
+The vader shared memory BTL will fall back on another single-copy
+mechanism if one is available. This may result in lower performance.
+
+  Local host: slurm-worker-node-01
+--------------------------------------------------------------------------
+IOR-3.3.0: MPI Coordinated Test of Parallel I/O
+Began               : Tue Mar 10 18:50:28 2026
+Command line        : /usr/local/bin/ior -a POSIX -w -k -o /home/cloud/shared_dir/container-runtime-testing-slurm/scripts/../ior_mdtest_apptainer/ior_testfile -b 128m -t 512k -s 8 -C -Q 1
+Machine             : Linux slurm-worker-node-01
+TestID              : 0
+StartTime           : Tue Mar 10 18:50:28 2026
+Path                : /home/cloud/shared_dir/container-runtime-testing-slurm/ior_mdtest_apptainer
+FS                  : 78.6 GiB   Used FS: 29.7%   Inodes: 5.0 Mi   Used Inodes: 7.9%
+
+Options: 
+api                 : POSIX
+apiVersion          : 
+test filename       : /home/cloud/shared_dir/container-runtime-testing-slurm/scripts/../ior_mdtest_apptainer/ior_testfile
+access              : single-shared-file
+type                : independent
+segments            : 8
+ordering in a file  : sequential
+ordering inter file : constant task offset
+task offset         : 1
+nodes               : 2
+tasks               : 8
+clients per node    : 4
+repetitions         : 1
+xfersize            : 524288 bytes
+blocksize           : 128 MiB
+aggregate filesize  : 8 GiB
+
+Results: 
+
+access    bw(MiB/s)  IOPS       Latency(s)  block(KiB) xfer(KiB)  open(s)    wr/rd(s)   close(s)   total(s)   iter
+------    ---------  ----       ----------  ---------- ---------  --------   --------   --------   --------   ----
+[slurm-worker-node-01:524620] 7 more processes have sent help message help-btl-vader.txt / cma-different-user-namespace-warning
+[slurm-worker-node-01:524620] Set MCA parameter "orte_base_help_aggregate" to 0 to see all help / error messages
+write     23.77      59.83      0.047245    131072     512.00     0.125010   273.83     332.60     344.65     0   
+Max Write: 23.77 MiB/sec (24.92 MB/sec)
+
+Summary of all tests:
+Operation   Max(MiB)   Min(MiB)  Mean(MiB)     StdDev   Max(OPs)   Min(OPs)  Mean(OPs)     StdDev    Mean(s) Stonewall(s) Stonewall(MiB) Test# #Tasks tPN reps fPP reord reordoff reordrand seed segcnt   blksiz    xsize aggs(MiB)   API RefNum
+write          23.77      23.77      23.77       0.00      47.54      47.54      47.54       0.00  344.65016         NA            NA     0      8   4    1   0     1        1         0    0      8 134217728   524288    8192.0 POSIX      0
+Finished            : Tue Mar 10 18:56:12 2026
+=========================================
+IOR READ TEST (Apptainer)
+=========================================
+--------------------------------------------------------------------------
+WARNING: The default btl_vader_single_copy_mechanism CMA is
+not available due to different user namespaces.
+
+The vader shared memory BTL will fall back on another single-copy
+mechanism if one is available. This may result in lower performance.
+
+  Local host: slurm-worker-node-01
+--------------------------------------------------------------------------
+IOR-3.3.0: MPI Coordinated Test of Parallel I/O
+Began               : Tue Mar 10 18:56:14 2026
+Command line        : /usr/local/bin/ior -a POSIX -r -o /home/cloud/shared_dir/container-runtime-testing-slurm/scripts/../ior_mdtest_apptainer/ior_testfile -b 128m -t 512k -s 8 -C -Q 1
+Machine             : Linux slurm-worker-node-01
+TestID              : 0
+StartTime           : Tue Mar 10 18:56:14 2026
+Path                : /home/cloud/shared_dir/container-runtime-testing-slurm/ior_mdtest_apptainer
+FS                  : 78.6 GiB   Used FS: 39.9%   Inodes: 5.0 Mi   Used Inodes: 7.9%
+
+Options: 
+api                 : POSIX
+apiVersion          : 
+test filename       : /home/cloud/shared_dir/container-runtime-testing-slurm/scripts/../ior_mdtest_apptainer/ior_testfile
+access              : single-shared-file
+type                : independent
+segments            : 8
+ordering in a file  : sequential
+ordering inter file : constant task offset
+task offset         : 1
+nodes               : 2
+tasks               : 8
+clients per node    : 4
+repetitions         : 1
+xfersize            : 524288 bytes
+blocksize           : 128 MiB
+aggregate filesize  : 8 GiB
+
+Results: 
+
+access    bw(MiB/s)  IOPS       Latency(s)  block(KiB) xfer(KiB)  open(s)    wr/rd(s)   close(s)   total(s)   iter
+------    ---------  ----       ----------  ---------- ---------  --------   --------   --------   --------   ----
+[slurm-worker-node-01:533823] 7 more processes have sent help message help-btl-vader.txt / cma-different-user-namespace-warning
+[slurm-worker-node-01:533823] Set MCA parameter "orte_base_help_aggregate" to 0 to see all help / error messages
+read      11.88      23.75      2.64        131072     512.00     0.001649   689.80     17.76      689.80     0   
+remove    -          -          -           -          -          -          -          -          0.841746   0   
+Max Read:  11.88 MiB/sec (12.45 MB/sec)
+
+Summary of all tests:
+Operation   Max(MiB)   Min(MiB)  Mean(MiB)     StdDev   Max(OPs)   Min(OPs)  Mean(OPs)     StdDev    Mean(s) Stonewall(s) Stonewall(MiB) Test# #Tasks tPN reps fPP reord reordoff reordrand seed segcnt   blksiz    xsize aggs(MiB)   API RefNum
+read           11.88      11.88      11.88       0.00      23.75      23.75      23.75       0.00  689.80080         NA            NA     0      8   4    1   0     1        1         0    0      8 134217728   524288    8192.0 POSIX      0
+Finished            : Tue Mar 10 19:07:44 2026
+=========================================
+MDTEST (Apptainer)
+=========================================
+--------------------------------------------------------------------------
+WARNING: The default btl_vader_single_copy_mechanism CMA is
+not available due to different user namespaces.
+
+The vader shared memory BTL will fall back on another single-copy
+mechanism if one is available. This may result in lower performance.
+
+  Local host: slurm-worker-node-01
+--------------------------------------------------------------------------
+-- started at 03/10/2026 19:07:45 --
+
+mdtest-3.3.0 was launched with 8 total task(s) on 2 node(s)
+Command line used: /usr/local/bin/mdtest '-d' '/home/cloud/shared_dir/container-runtime-testing-slurm/scripts/../ior_mdtest_apptainer/mdtest' '-n' '1000' '-i' '3' '-u' '-L'
+Path: /home/cloud/shared_dir/container-runtime-testing-slurm/ior_mdtest_apptainer
+FS: 78.6 GiB   Used FS: 29.7%   Inodes: 5.0 Mi   Used Inodes: 7.9%
+
+Nodemap: 11110000
+8 tasks, 8000 files/directories
+[slurm-worker-node-01:542131] 7 more processes have sent help message help-btl-vader.txt / cma-different-user-namespace-warning
+[slurm-worker-node-01:542131] Set MCA parameter "orte_base_help_aggregate" to 0 to see all help / error messages
+
+SUMMARY rate: (of 3 iterations)
+   Operation                      Max            Min           Mean        Std Dev
+   ---------                      ---            ---           ----        -------
+   Directory creation        :        218.014        192.947        206.231         10.287
+   Directory stat            :      35637.642      25391.688      31222.608       4256.826
+   Directory removal         :        194.387        172.225        185.746          9.682
+   File creation             :        256.927        199.629        236.482         26.109
+   File stat                 :    1202128.970    1102700.721    1146422.047      30983.500
+   File read                 :       3240.887       3124.443       3188.368         47.911
+   File removal              :        237.907        211.656        226.914         11.131
+   Tree creation             :         15.003          9.010         11.966          2.447
+   Tree removal              :         15.743          5.873         11.485          4.141
+-- finished at 03/10/2026 19:15:29 --
+
+[bench_lib] Sent stop signal to slurm-worker-node-01
+[bench_lib] Sent stop signal to slurm-worker-node-02
+
+=======================================================
+ Benchmark Complete: apptainer_ior
+=======================================================
+ Nodes collected  : 2 / 2
+ Wall clock       : 1502.578s
+ Exit status      : 0
+-------------------------------------------------------
+ Summary CSV      : /home/cloud/shared_dir/container-runtime-testing-slurm/scripts/../results/bench_results/apptainer_ior_264/summary.csv
+ Timeseries CSVs  : /home/cloud/shared_dir/container-runtime-testing-slurm/scripts/../results/bench_results/apptainer_ior_264/<node>_timeseries.csv
+ Sacct CSV        : /home/cloud/shared_dir/container-runtime-testing-slurm/scripts/../results/bench_results/apptainer_ior_264/sacct.csv
+=======================================================
+
+=========================================
+Completed
+=========================================
