@@ -1,6 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=apptainer_benchmark
 #SBATCH --nodes=2
+#SBATCH --ntasks-per-node=1
 #SBATCH --time=00:30:00
 #SBATCH --output=./../results/apptainer_osu_benchmark_%j.out
 
@@ -22,7 +23,6 @@ echo "========================================="
 # Use host MPI (mpirun from system), but run OSU binary inside container
 mpirun -np 2 \
   --bind-to core \
-  --map-by ppr:2:node \
   apptainer exec \
     $CONTAINER \
     osu_latency
@@ -34,7 +34,6 @@ echo "========================================="
 
 mpirun -np 2 \
   --bind-to core \
-  --map-by ppr:2:node \
   apptainer exec \
     $CONTAINER \
     osu_bw
@@ -46,7 +45,6 @@ echo "========================================="
 
 mpirun -np 2 \
   --bind-to core \
-  --map-by ppr:2:node \
   apptainer exec \
     $CONTAINER \
     osu_bibw
@@ -58,7 +56,6 @@ echo "========================================="
 
 mpirun -np 2 \
   --bind-to core \
-  --map-by ppr:2:node \
   apptainer exec \
     $CONTAINER \
     osu_allreduce
