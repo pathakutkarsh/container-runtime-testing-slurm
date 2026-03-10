@@ -15,7 +15,6 @@ source ./bench_lib.sh
 MPIRUN="mpirun \
     --np $SLURM_NTASKS \
     --bind-to core \
-    --map-by ppr:4:node \
     --mca btl self,tcp"
 
 APPTAINER_RUN="apptainer exec \
