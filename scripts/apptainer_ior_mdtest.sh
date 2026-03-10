@@ -1,17 +1,20 @@
 #!/bin/bash
-# run_benchmark_apptainer.sh
-
 #SBATCH --job-name=apptainer_benchmark
 #SBATCH --nodes=2
 #SBATCH --ntasks-per-node=4
 #SBATCH --time=00:30:00
-#SBATCH --output=/home/cloud/shared_dir/apptainer_ior_benchmark_%j.out
+#SBATCH --output=./../results/apptainer_ior_benchmark_%j.out
 
-BASE_DIR=/home/cloud/shared_dir
-TEST_DIR=$BASE_DIR/ior_mdtest_apptainer
+BASE_DIR=$(pwd)/../
+TEST_DIR=$BASE_DIR/osu_apptainer
 CONTAINER=$BASE_DIR/apptainer/ior.sif
 
 mkdir -p $TEST_DIR
+
+source ./bench_lib.sh
+
+bench_start apptainer_osu
+
 
 echo "========================================="
 echo "IOR WRITE TEST (Apptainer)"
@@ -48,4 +51,12 @@ mpirun \
   apptainer exec \
     --bind $BASE_DIR:$BASE_DIR \
     $CONTAINER \
-    mdtest -d $TEST_DIR/mdtest -n 1000 -i 3 -u -L -F
+    mdtest -d $TEST_DIR/mdtest -n 1000 -i 3 -u -L -
+    
+bench_end
+echo ""
+echo "========================================="
+echo "Completed"
+echo "========================================="
+# Cleanup
+rm -rf $TEST_DIR

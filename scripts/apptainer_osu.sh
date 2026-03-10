@@ -22,9 +22,8 @@ echo "========================================="
 # Use host MPI (mpirun from system), but run OSU binary inside container
 mpirun -np 2 \
   --bind-to core \
-  --mca btl self,tcp \
+  --map-by ppr:2:node \
   apptainer exec \
-  --pid --ipc \
     $CONTAINER \
     osu_latency
 
@@ -35,9 +34,8 @@ echo "========================================="
 
 mpirun -np 2 \
   --bind-to core \
-  --mca btl self,tcp \
+  --map-by ppr:2:node \
   apptainer exec \
-  --pid --ipc \
     $CONTAINER \
     osu_bw
 
@@ -48,9 +46,8 @@ echo "========================================="
 
 mpirun -np 2 \
   --bind-to core \
-  --mca btl self,tcp \
+  --map-by ppr:2:node \
   apptainer exec \
-  --pid --ipc \
     $CONTAINER \
     osu_bibw
 
@@ -61,9 +58,8 @@ echo "========================================="
 
 mpirun -np 2 \
   --bind-to core \
-  --mca btl self,tcp \
+  --map-by ppr:2:node \
   apptainer exec \
-  --pid --ipc \
     $CONTAINER \
     osu_allreduce
 
