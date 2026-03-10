@@ -15,7 +15,7 @@ source ./bench_lib.sh
 
 MPIRUN="mpirun \
     --np $SLURM_NTASKS \
-    --bind-to core
+    --bind-to core"
 
 APPTAINER_RUN="apptainer exec \
     --bind $BASE_DIR:$BASE_DIR \
