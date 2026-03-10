@@ -1,0 +1,156 @@
+Node List
+slurm-worker-node-01
+[bench_lib] Started collector on slurm-worker-node-01 (pid 56083)
+[bench_lib] Started collector on slurm-worker-node-02 (pid 56084)
+[bench_lib] Benchmark started: label=podman_ior, job=224
+[bench_lib] Nodes: slurm-worker-node-01 slurm-worker-node-02
+=========================================
+IOR Write Test
+=========================================
+--------------------------------------------------------------------------
+WARNING: The default btl_vader_single_copy_mechanism CMA is
+not available due to different user namespaces.
+
+The vader shared memory BTL will fall back on another single-copy
+mechanism if one is available. This may result in lower performance.
+
+  Local host: slurm-worker-node-01
+--------------------------------------------------------------------------
+IOR-3.3.0: MPI Coordinated Test of Parallel I/O
+Began               : Mon Mar  9 23:02:52 2026
+Command line        : /opt/ior/bin/ior -k -w -o /tmp/ior-224/ior_testfile -t 1m -b 16m -s 16
+Machine             : Linux slurm-worker-node-01
+TestID              : 0
+StartTime           : Mon Mar  9 23:02:52 2026
+Path                : /tmp/ior-224
+FS                  : 78.6 GiB   Used FS: 20.2%   Inodes: 5.0 Mi   Used Inodes: 6.6%
+
+Options: 
+api                 : POSIX
+apiVersion          : 
+test filename       : /tmp/ior-224/ior_testfile
+access              : single-shared-file
+type                : independent
+segments            : 16
+ordering in a file  : sequential
+ordering inter file : no tasks offsets
+nodes               : 1
+tasks               : 4
+clients per node    : 4
+repetitions         : 1
+xfersize            : 1 MiB
+blocksize           : 16 MiB
+aggregate filesize  : 1 GiB
+
+Results: 
+
+access    bw(MiB/s)  IOPS       Latency(s)  block(KiB) xfer(KiB)  open(s)    wr/rd(s)   close(s)   total(s)   iter
+------    ---------  ----       ----------  ---------- ---------  --------   --------   --------   --------   ----
+write     1493.27    1493.37    0.041371    16384      1024.00    0.000048   0.685696   0.023757   0.685745   0   
+Max Write: 1493.27 MiB/sec (1565.80 MB/sec)
+
+Summary of all tests:
+Operation   Max(MiB)   Min(MiB)  Mean(MiB)     StdDev   Max(OPs)   Min(OPs)  Mean(OPs)     StdDev    Mean(s) Stonewall(s) Stonewall(MiB) Test# #Tasks tPN reps fPP reord reordoff reordrand seed segcnt   blksiz    xsize aggs(MiB)   API RefNum
+write        1493.27    1493.27    1493.27       0.00    1493.27    1493.27    1493.27       0.00    0.68574         NA            NA     0      4   4    1   0     0        1         0    0     16 16777216  1048576    1024.0 POSIX      0
+Finished            : Mon Mar  9 23:02:53 2026
+[slurm-worker-node-01:56150] 3 more processes have sent help message help-btl-vader.txt / cma-different-user-namespace-warning
+[slurm-worker-node-01:56150] Set MCA parameter "orte_base_help_aggregate" to 0 to see all help / error messages
+
+=========================================
+IOR Read Test
+=========================================
+[slurm-worker-node-01:56376] [[43220,0],0] ORTE_ERROR_LOG: Data unpack would read past end of buffer in file ../../../orte/util/show_help.c at line 501
+[slurm-worker-node-01:56376] [[43220,0],0] ORTE_ERROR_LOG: Data unpack would read past end of buffer in file ../../../orte/util/show_help.c at line 501
+[slurm-worker-node-01:56376] [[43220,0],0] ORTE_ERROR_LOG: Data unpack would read past end of buffer in file ../../../orte/util/show_help.c at line 501
+[slurm-worker-node-01:56376] [[43220,0],0] ORTE_ERROR_LOG: Data unpack would read past end of buffer in file ../../../orte/util/show_help.c at line 501
+IOR-3.3.0: MPI Coordinated Test of Parallel I/O
+Began               : Mon Mar  9 23:02:58 2026
+Command line        : /opt/ior/bin/ior -r -o /tmp/ior-224/ior_testfile -t 1m -b 16m -s 16
+Machine             : Linux slurm-worker-node-01
+TestID              : 0
+StartTime           : Mon Mar  9 23:02:58 2026
+Path                : /tmp/ior-224
+FS                  : 78.6 GiB   Used FS: 21.5%   Inodes: 5.0 Mi   Used Inodes: 6.6%
+
+Options: 
+api                 : POSIX
+apiVersion          : 
+test filename       : /tmp/ior-224/ior_testfile
+access              : single-shared-file
+type                : independent
+segments            : 16
+ordering in a file  : sequential
+ordering inter file : no tasks offsets
+nodes               : 1
+tasks               : 4
+clients per node    : 4
+repetitions         : 1
+xfersize            : 1 MiB
+blocksize           : 16 MiB
+aggregate filesize  : 1 GiB
+
+Results: 
+
+access    bw(MiB/s)  IOPS       Latency(s)  block(KiB) xfer(KiB)  open(s)    wr/rd(s)   close(s)   total(s)   iter
+------    ---------  ----       ----------  ---------- ---------  --------   --------   --------   --------   ----
+read      27971      27988      0.002286    16384      1024.00    0.000020   0.036586   0.007516   0.036610   0   
+remove    -          -          -           -          -          -          -          -          0.131047   0   
+Max Read:  27970.61 MiB/sec (29329.31 MB/sec)
+
+Summary of all tests:
+Operation   Max(MiB)   Min(MiB)  Mean(MiB)     StdDev   Max(OPs)   Min(OPs)  Mean(OPs)     StdDev    Mean(s) Stonewall(s) Stonewall(MiB) Test# #Tasks tPN reps fPP reord reordoff reordrand seed segcnt   blksiz    xsize aggs(MiB)   API RefNum
+read        27970.61   27970.61   27970.61       0.00   27970.61   27970.61   27970.61       0.00    0.03661         NA            NA     0      4   4    1   0     0        1         0    0     16 16777216  1048576    1024.0 POSIX      0
+Finished            : Mon Mar  9 23:02:58 2026
+=========================================
+MDTEST
+=========================================
+--------------------------------------------------------------------------
+WARNING: The default btl_vader_single_copy_mechanism CMA is
+not available due to different user namespaces.
+
+The vader shared memory BTL will fall back on another single-copy
+mechanism if one is available. This may result in lower performance.
+
+  Local host: slurm-worker-node-01
+--------------------------------------------------------------------------
+-- started at 03/09/2026 23:03:01 --
+
+mdtest-3.3.0 was launched with 4 total task(s) on 1 node(s)
+Command line used: /opt/ior/bin/mdtest '-d' '/tmp/ior-224/mdtest' '-n' '1000' '-i' '3' '-u' '-L' '-F'
+Path: /tmp/ior-224
+FS: 78.6 GiB   Used FS: 20.2%   Inodes: 5.0 Mi   Used Inodes: 6.6%
+
+Nodemap: 1111
+4 tasks, 4000 files
+
+SUMMARY rate: (of 3 iterations)
+   Operation                      Max            Min           Mean        Std Dev
+   ---------                      ---            ---           ----        -------
+   File creation             :     204603.758      11888.266     127100.869      83066.798
+   File stat                 :    2475800.597    1104740.136    1646814.114     587914.661
+   File read                 :    1233266.881     719345.281     944575.360     214510.915
+   File removal              :     229254.594     184072.696     206676.322      18430.707
+   Tree creation             :       6545.316       4401.951       5529.874        878.633
+   Tree removal              :        884.895        739.127        806.472         60.023
+-- finished at 03/09/2026 23:03:01 --
+
+[slurm-worker-node-01:56601] 3 more processes have sent help message help-btl-vader.txt / cma-different-user-namespace-warning
+[slurm-worker-node-01:56601] Set MCA parameter "orte_base_help_aggregate" to 0 to see all help / error messages
+[bench_lib] Sent stop signal to slurm-worker-node-01
+[bench_lib] Sent stop signal to slurm-worker-node-02
+
+=======================================================
+ Benchmark Complete: podman_ior
+=======================================================
+ Nodes collected  : 2 / 2
+ Wall clock       : 14.887s
+ Exit status      : 0
+-------------------------------------------------------
+ Summary CSV      : /home/cloud/shared_dir/container-runtime-testing-slurm/scripts/../results/bench_results/podman_ior_224/summary.csv
+ Timeseries CSVs  : /home/cloud/shared_dir/container-runtime-testing-slurm/scripts/../results/bench_results/podman_ior_224/<node>_timeseries.csv
+ Sacct CSV        : /home/cloud/shared_dir/container-runtime-testing-slurm/scripts/../results/bench_results/podman_ior_224/sacct.csv
+=======================================================
+
+=========================================
+Completed
+=========================================
