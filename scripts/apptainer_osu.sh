@@ -36,25 +36,25 @@ bench_start apptainer_osu
 echo "========================================="
 echo "OSU Latency Test (Using Host MPI)"
 echo "========================================="
-$MPIRUN $APPTAINER_RUN osu_latency
+$MPIRUN $APPTAINER_RUN /usr/local/libexec/osu-micro-benchmarks/mpi/pt2pt/osu_latency
 
 echo ""
 echo "========================================="
 echo "OSU Bandwidth Test"
 echo "========================================="
-$MPIRUN $APPTAINER_RUN osu_bw
+$MPIRUN $APPTAINER_RUN /usr/local/libexec/osu-micro-benchmarks/mpi/pt2pt/osu_bw
 
 echo ""
 echo "========================================="
 echo "OSU Bidirectional Bandwidth Test"
 echo "========================================="
-$MPIRUN $APPTAINER_RUN osu_bibw
+$MPIRUN $APPTAINER_RUN /usr/local/libexec/osu-micro-benchmarks/mpi/pt2pt/osu_bibw
 
 echo ""
 echo "========================================="
 echo "OSU Allreduce Test"
 echo "========================================="
-$MPIRUN $APPTAINER_RUN osu_allreduce
+$MPIRUN $APPTAINER_RUN /usr/local/libexec/osu-micro-benchmarks/mpi/collective/osu_allreduce
 
 bench_end
 
