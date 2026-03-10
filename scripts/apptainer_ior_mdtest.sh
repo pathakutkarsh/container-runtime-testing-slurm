@@ -8,7 +8,8 @@
 BASE_DIR=$(pwd)/..
 CONTAINER=$BASE_DIR/apptainer/ior.sif
 TEST_DIR="/tmp/ior-${SLURM_JOB_ID}"  # change to your shared fs path
-mkdir -p "$TEST_DIR"
+
+srun --ntasks-per-node=1 mkdir -p "$TEST_DIR"
 
 source ./bench_lib.sh
 
