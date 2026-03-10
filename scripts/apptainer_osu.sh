@@ -20,13 +20,6 @@ MPIRUN="mpirun \
 
 APPTAINER_RUN="apptainer exec \
     --bind $BASE_DIR:$BASE_DIR \
-    --bind $TMPDIR:$TMPDIR \
-    --sharens \
-    --env OMPI_MCA_btl=self,tcp \
-    --env OMPI_MCA_orte_tmpdir_base=$TMPDIR \
-    --env SLURM_NTASKS=$SLURM_NTASKS \
-    --env SLURM_NODELIST=$SLURM_NODELIST \
-    --env SLURM_JOB_ID=$SLURM_JOB_ID \
     $CONTAINER"
 
 bench_start apptainer_osu
