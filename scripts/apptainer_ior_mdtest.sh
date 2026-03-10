@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=apptainer_benchmark
 #SBATCH --nodes=2
-#SBATCH --ntasks=4
+#SBATCH --ntasks-per-node=4
 #SBATCH --time=00:30:00
 #SBATCH --output=./../results/apptainer_ior_benchmark_%j.out
 
@@ -14,7 +14,7 @@ mkdir -p "$TEST_DIR"
 source ./bench_lib.sh
 
 MPIRUN="mpirun \
-    --map-by ppr:4:node \
+    --map-by ppr:2:node \
     --bind-to socket"
 
 APPTAINER_RUN="apptainer exec \
