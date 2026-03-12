@@ -17,7 +17,7 @@ MPIRUN="mpirun \
 CHARLIECLOUD_RUN="ch-run $BASE_DIR/charliecloud/ior_mdtest_charliecloud --"
 
 
-mkdir -p $TEST_DIR
+mkdir -p "$TEST_DIR"
 
 bench_start charliecloud_ior
 
@@ -45,4 +45,4 @@ echo ""
 echo "========================================="
 echo "Benchmark completed successfully."
 echo "========================================="
-rm -rf $TEST_DIR
+# rm -rf $TEST_DIR
