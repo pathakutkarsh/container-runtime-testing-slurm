@@ -30,21 +30,21 @@ echo "========================================="
 echo "OSU Bandwidth Test"
 echo "========================================="
 
-$MPIRUN $CHARLIECLOUD_RUN /home/cloud/shared_dir/charliecloud/osu-benchmarks -- /usr/local/libexec/osu-micro-benchmarks/mpi/pt2pt/osu_bw
+$MPIRUN $CHARLIECLOUD_RUN /usr/local/libexec/osu-micro-benchmarks/mpi/pt2pt/osu_bw
 
 echo ""
 echo "========================================="
 echo "OSU Bidirectional Bandwidth Test"
 echo "========================================="
 
-$MPIRUN $CHARLIECLOUD_RUN /home/cloud/shared_dir/charliecloud/osu-benchmarks -- /usr/local/libexec/osu-micro-benchmarks/mpi/pt2pt/osu_bibw
+$MPIRUN $CHARLIECLOUD_RUN /usr/local/libexec/osu-micro-benchmarks/mpi/pt2pt/osu_bibw
 
 echo ""
 echo "========================================="
 echo "OSU Allreduce Test"
 echo "========================================="
 
-$MPIRUN $CHARLIECLOUD_RUN /home/cloud/shared_dir/charliecloud/osu-benchmarks -- /usr/local/libexec/osu-micro-benchmarks/mpi/collective/osu_allreduce
+$MPIRUN $CHARLIECLOUD_RUN /usr/local/libexec/osu-micro-benchmarks/mpi/collective/osu_allreduce
 
 
 bench_end
