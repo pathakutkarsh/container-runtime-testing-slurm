@@ -25,19 +25,19 @@ echo "========================================="
 echo "IOR WRITE TEST "
 echo "========================================="
 
-$MPIRUN $CHARLIECLOUD_RUN /opt/ior/bin/ior -a POSIX -w -k -o /mnt/ior_testfile -b 128m -t 512k -s 8 -C -Q 1
+$MPIRUN $CHARLIECLOUD_RUN /opt/ior/bin/ior -a POSIX -w -k -o $TEST_DIR/ior_testfile -b 128m -t 512k -s 8 -C -Q 1
 
 echo "========================================="
 echo "IOR READ TEST "
 echo "========================================="
 
-$MPIRUN $CHARLIECLOUD_RUN /opt/ior/bin/ior -a POSIX -r -o /mnt/ior_testfile -b 128m -t 512k -s 8 -C -Q 1
+$MPIRUN $CHARLIECLOUD_RUN /opt/ior/bin/ior -a POSIX -r -o $TEST_DIR/ior_testfile -b 128m -t 512k -s 8 -C -Q 1
 
 echo "========================================="
 echo "MDTEST "
 echo "========================================="
 
-$MPIRUN $CHARLIECLOUD_RUN /opt/ior/bin/mdtest -d /mnt/mdtest -n 1000 -i 3 -u -L -F
+$MPIRUN $CHARLIECLOUD_RUN /opt/ior/bin/mdtest -d $TEST_DIR/mdtest -n 1000 -i 3 -u -L -F
 
 bench_end
 
