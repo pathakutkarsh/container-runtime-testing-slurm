@@ -14,7 +14,9 @@ MPIRUN="mpirun \
     --map-by ppr:4:node \
     --bind-to socket"
 
-CHARLIECLOUD_RUN="ch-run $BASE_DIR/charliecloud/ior_mdtest_charliecloud --"
+CHARLIECLOUD_RUN="ch-run \
+                  -b $TEST_DIR:$TEST_DIR \
+                  $BASE_DIR/charliecloud/ior_mdtest_charliecloud --"
 
 
 mkdir -p "$TEST_DIR"
