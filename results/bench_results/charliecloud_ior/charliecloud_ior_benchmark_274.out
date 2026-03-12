@@ -1,0 +1,164 @@
+Node List
+slurm-worker-node-01
+[bench_lib] Started collector on slurm-worker-node-01 (pid 655289)
+[bench_lib] Started collector on slurm-worker-node-02 (pid 655290)
+[bench_lib] Benchmark started: label=charliecloud_ior, job=274
+[bench_lib] Nodes: slurm-worker-node-01 slurm-worker-node-02
+=========================================
+IOR WRITE TEST 
+=========================================
+--------------------------------------------------------------------------
+WARNING: The default btl_vader_single_copy_mechanism CMA is
+not available due to different user namespaces.
+
+The vader shared memory BTL will fall back on another single-copy
+mechanism if one is available. This may result in lower performance.
+
+  Local host: slurm-worker-node-01
+--------------------------------------------------------------------------
+IOR-3.3.0: MPI Coordinated Test of Parallel I/O
+Began               : Thu Mar 12 11:51:52 2026
+Command line        : /opt/ior/bin/ior -a POSIX -w -k -o /mnt/ior_testfile -b 128m -t 512k -s 8 -C -Q 1
+Machine             : Linux slurm-worker-node-01
+TestID              : 0
+StartTime           : Thu Mar 12 11:51:52 2026
+Path                : /mnt
+FS                  : 78.6 GiB   Used FS: 33.0%   Inodes: 5.0 Mi   Used Inodes: 9.2%
+
+Options: 
+api                 : POSIX
+apiVersion          : 
+test filename       : /mnt/ior_testfile
+access              : single-shared-file
+type                : independent
+segments            : 8
+ordering in a file  : sequential
+ordering inter file : constant task offset
+task offset         : 1
+nodes               : 2
+tasks               : 8
+clients per node    : 4
+repetitions         : 1
+xfersize            : 524288 bytes
+blocksize           : 128 MiB
+aggregate filesize  : 8 GiB
+
+Results: 
+
+access    bw(MiB/s)  IOPS       Latency(s)  block(KiB) xfer(KiB)  open(s)    wr/rd(s)   close(s)   total(s)   iter
+------    ---------  ----       ----------  ---------- ---------  --------   --------   --------   --------   ----
+[slurm-worker-node-01:655355] 7 more processes have sent help message help-btl-vader.txt / cma-different-user-namespace-warning
+[slurm-worker-node-01:655355] Set MCA parameter "orte_base_help_aggregate" to 0 to see all help / error messages
+write     23.68      58.36      0.048545    131072     512.00     0.182906   280.76     334.12     346.00     0   
+Max Write: 23.68 MiB/sec (24.83 MB/sec)
+
+Summary of all tests:
+Operation   Max(MiB)   Min(MiB)  Mean(MiB)     StdDev   Max(OPs)   Min(OPs)  Mean(OPs)     StdDev    Mean(s) Stonewall(s) Stonewall(MiB) Test# #Tasks tPN reps fPP reord reordoff reordrand seed segcnt   blksiz    xsize aggs(MiB)   API RefNum
+write          23.68      23.68      23.68       0.00      47.35      47.35      47.35       0.00  346.00444         NA            NA     0      8   4    1   0     1        1         0    0      8 134217728   524288    8192.0 POSIX      0
+Finished            : Thu Mar 12 11:57:38 2026
+=========================================
+IOR READ TEST 
+=========================================
+--------------------------------------------------------------------------
+WARNING: The default btl_vader_single_copy_mechanism CMA is
+not available due to different user namespaces.
+
+The vader shared memory BTL will fall back on another single-copy
+mechanism if one is available. This may result in lower performance.
+
+  Local host: slurm-worker-node-01
+--------------------------------------------------------------------------
+IOR-3.3.0: MPI Coordinated Test of Parallel I/O
+Began               : Thu Mar 12 11:57:40 2026
+Command line        : /opt/ior/bin/ior -a POSIX -r -o /mnt/ior_testfile -b 128m -t 512k -s 8 -C -Q 1
+Machine             : Linux slurm-worker-node-01
+TestID              : 0
+StartTime           : Thu Mar 12 11:57:40 2026
+Path                : /mnt
+FS                  : 78.6 GiB   Used FS: 43.2%   Inodes: 5.0 Mi   Used Inodes: 9.2%
+
+Options: 
+api                 : POSIX
+apiVersion          : 
+test filename       : /mnt/ior_testfile
+access              : single-shared-file
+type                : independent
+segments            : 8
+ordering in a file  : sequential
+ordering inter file : constant task offset
+task offset         : 1
+nodes               : 2
+tasks               : 8
+clients per node    : 4
+repetitions         : 1
+xfersize            : 524288 bytes
+blocksize           : 128 MiB
+aggregate filesize  : 8 GiB
+
+Results: 
+
+access    bw(MiB/s)  IOPS       Latency(s)  block(KiB) xfer(KiB)  open(s)    wr/rd(s)   close(s)   total(s)   iter
+------    ---------  ----       ----------  ---------- ---------  --------   --------   --------   --------   ----
+[slurm-worker-node-01:657673] 7 more processes have sent help message help-btl-vader.txt / cma-different-user-namespace-warning
+[slurm-worker-node-01:657673] Set MCA parameter "orte_base_help_aggregate" to 0 to see all help / error messages
+read      11.88      23.76      2.66        131072     512.00     0.002022   689.66     22.90      689.66     0   
+remove    -          -          -           -          -          -          -          -          0.814883   0   
+Max Read:  11.88 MiB/sec (12.46 MB/sec)
+
+Summary of all tests:
+Operation   Max(MiB)   Min(MiB)  Mean(MiB)     StdDev   Max(OPs)   Min(OPs)  Mean(OPs)     StdDev    Mean(s) Stonewall(s) Stonewall(MiB) Test# #Tasks tPN reps fPP reord reordoff reordrand seed segcnt   blksiz    xsize aggs(MiB)   API RefNum
+read           11.88      11.88      11.88       0.00      23.76      23.76      23.76       0.00  689.66087         NA            NA     0      8   4    1   0     1        1         0    0      8 134217728   524288    8192.0 POSIX      0
+Finished            : Thu Mar 12 12:09:10 2026
+=========================================
+MDTEST 
+=========================================
+--------------------------------------------------------------------------
+WARNING: The default btl_vader_single_copy_mechanism CMA is
+not available due to different user namespaces.
+
+The vader shared memory BTL will fall back on another single-copy
+mechanism if one is available. This may result in lower performance.
+
+  Local host: slurm-worker-node-01
+--------------------------------------------------------------------------
+-- started at 03/12/2026 12:09:11 --
+
+mdtest-3.3.0 was launched with 8 total task(s) on 2 node(s)
+Command line used: /opt/ior/bin/mdtest '-d' '/mnt/mdtest' '-n' '1000' '-i' '3' '-u' '-L' '-F'
+Path: /mnt
+FS: 78.6 GiB   Used FS: 33.0%   Inodes: 5.0 Mi   Used Inodes: 9.2%
+
+Nodemap: 11110000
+8 tasks, 8000 files
+[slurm-worker-node-01:659850] 7 more processes have sent help message help-btl-vader.txt / cma-different-user-namespace-warning
+[slurm-worker-node-01:659850] Set MCA parameter "orte_base_help_aggregate" to 0 to see all help / error messages
+
+SUMMARY rate: (of 3 iterations)
+   Operation                      Max            Min           Mean        Std Dev
+   ---------                      ---            ---           ----        -------
+   File creation             :        244.919        221.830        233.438          9.425
+   File stat                 :    2515044.683    1325423.866    1702074.844     376663.349
+   File read                 :       3426.641       3201.857       3315.106         91.379
+   File removal              :        237.111        218.392        227.125          7.691
+   Tree creation             :         10.140          3.214          6.633          2.828
+   Tree removal              :          9.196          7.067          8.167          0.870
+-- finished at 03/12/2026 12:12:49 --
+
+[bench_lib] Sent stop signal to slurm-worker-node-01
+[bench_lib] Sent stop signal to slurm-worker-node-02
+
+=======================================================
+ Benchmark Complete: charliecloud_ior
+=======================================================
+ Nodes collected  : 2 / 2
+ Wall clock       : 1257.037s
+ Exit status      : 0
+-------------------------------------------------------
+ Summary CSV      : /home/cloud/shared_dir/container-runtime-testing-slurm/scripts/../results/bench_results/charliecloud_ior_274/summary.csv
+ Timeseries CSVs  : /home/cloud/shared_dir/container-runtime-testing-slurm/scripts/../results/bench_results/charliecloud_ior_274/<node>_timeseries.csv
+ Sacct CSV        : /home/cloud/shared_dir/container-runtime-testing-slurm/scripts/../results/bench_results/charliecloud_ior_274/sacct.csv
+=======================================================
+
+=========================================
+Benchmark completed successfully.
+=========================================
