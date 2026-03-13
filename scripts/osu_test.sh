@@ -21,25 +21,25 @@ bench_start slurm_osu
 echo "========================================="
 echo "OSU Latency Test"
 echo "========================================="
-$MPIRUN   $BASE_DIR/osu-micro-benchmarks-7.4/c/mpi/pt2pt/standard/osu_latency
+$MPIRUN $BASE_DIR/osu-micro-benchmarks-7.4/c/mpi/pt2pt/standard/osu_latency
 
 echo ""
 echo "========================================="
 echo "OSU Bandwidth Test"
 echo "========================================="
-$MPIRUN  $BASE_DIR/osu-micro-benchmarks-7.4/c/mpi/pt2pt/standard/osu_bw
+$MPIRUN $BASE_DIR/osu-micro-benchmarks-7.4/c/mpi/pt2pt/standard/osu_bw
 
 echo ""
 echo "========================================="
 echo "OSU Bidirectional Bandwidth Test"
 echo "========================================="
-$MPIRUN  $BASE_DIR/osu-micro-benchmarks-7.4/c/mpi/pt2pt/standard/osu_bibw
+$MPIRUN $BASE_DIR/osu-micro-benchmarks-7.4/c/mpi/pt2pt/standard/osu_bibw
 
 echo ""
 echo "========================================="
 echo "OSU Allreduce Test"
 echo "========================================="
-$MPIRUN   $BASE_DIR/osu-micro-benchmarks-7.4/c/mpi/collective/blocking/osu_allreduce
+$MPIRUN $BASE_DIR/osu-micro-benchmarks-7.4/c/mpi/collective/blocking/osu_allreduce
 
 bench_end
 
