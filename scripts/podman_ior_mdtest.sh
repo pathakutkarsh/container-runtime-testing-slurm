@@ -8,30 +8,27 @@
 # Create test directory
 CONTAINER_IMAGE="localhost/ior-benchmark:latest"
 
+TMPDIR="/tmp/podman-mpirun-${SLURM_JOB_ID}"
+mkdir -p "$TMPDIR"
+
 BASE_DIR=$(pwd)/..
-
-# TMPDIR="/tmp/podman-mpirun-${SLURM_JOB_ID}"
-# mkdir -p "$TMPDIR"
-
-TEST_DIR="$BASE_DIR/ior-${SLURM_JOB_ID}"
-
+TEST_DIR="/tmp/ior-${SLURM_JOB_ID}"
 mkdir -p "$TEST_DIR"
-
-# waiting for directory creation
-sleep 2
 
 MPIRUN="mpirun \
     --map-by ppr:4:node \
+    --mca orte_tmpdir_base $TMPDIR \
     --mca btl self,tcp \
     --bind-to socket"
 
 PODMAN_RUN="podman run \
             --rm \
             --env-host \
-            -v "$TEST_DIR:$TEST_DIR" \
+            -v $TMPDIR:$TMPDIR \
+            -v $TEST_DIR:$TEST_DIR \
             --userns=keep-id \
             --net=host --pid=host --ipc=host \
-            "$CONTAINER_IMAGE""
+            $CONTAINER_IMAGE"
 
 source ./bench_lib.sh
 
