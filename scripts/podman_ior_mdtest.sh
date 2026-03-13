@@ -17,6 +17,9 @@ TEST_DIR="$BASE_DIR/ior-${SLURM_JOB_ID}"
 
 mkdir -p "$TEST_DIR"
 
+# waiting for directory creation
+sleep 2
+
 MPIRUN="mpirun \
     --map-by ppr:4:node \
     --mca orte_tmpdir_base "$TMPDIR" \
