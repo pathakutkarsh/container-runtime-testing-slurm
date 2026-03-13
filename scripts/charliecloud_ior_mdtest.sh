@@ -12,6 +12,7 @@ source ./bench_lib.sh
 
 MPIRUN="mpirun \
     --map-by ppr:4:node \
+    --mca btl self,tcp \
     --bind-to socket"
 
 CHARLIECLOUD_RUN="ch-run \

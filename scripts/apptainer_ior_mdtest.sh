@@ -15,6 +15,7 @@ source ./bench_lib.sh
 
 MPIRUN="mpirun \
     --map-by ppr:4:node \
+    --mca btl self,tcp \
     --bind-to socket"
 
 APPTAINER_RUN="apptainer exec \

@@ -15,6 +15,20 @@ BASE_DIR=$(pwd)/..
 TEST_DIR="/tmp/ior-${SLURM_JOB_ID}"
 mkdir -p "$TEST_DIR"
 
+MPIRUN="mpirun \
+    --map-by ppr:4:node \
+    --mca orte_tmpdir_base "$TMPDIR" \
+    --mca btl self,tcp \
+    --bind-to socket"
+
+PODMAN_RUN="podman run \
+            --rm \
+            --env-host \
+            -v "$TMPDIR:$TMPDIR" \
+            -v "$TEST_DIR:$TEST_DIR" \
+            --userns=keep-id \
+            --net=host --pid=host --ipc=host \
+            "$CONTAINER_IMAGE""
 
 source ./bench_lib.sh
 
@@ -26,53 +40,20 @@ echo "========================================="
 echo "IOR Write Test"
 echo "========================================="
 
-    mpirun -np $SLURM_NTASKS \
-        --mca orte_tmpdir_base "$TMPDIR" \
-        --bind-to socket \
-        podman run \
-            --rm \
-            --env-host \
-            -v "$TMPDIR:$TMPDIR" \
-            -v "$TEST_DIR:$TEST_DIR" \
-            --userns=keep-id \
-            --net=host --pid=host --ipc=host \
-            "$CONTAINER_IMAGE" \
-            /opt/ior/bin/ior -k -w -o $TEST_DIR/ior_testfile -t 1m -b 16m -s 16
+$MPIRUN $PODMAN_RUN /opt/ior/bin/ior -k -w -o $TEST_DIR/ior_testfile -t 1m -b 16m -s 16
 
 echo ""
 echo "========================================="
 echo "IOR Read Test"
 echo "========================================="
-    mpirun -np $SLURM_NTASKS \
-        --mca orte_tmpdir_base "$TMPDIR" \
-        --bind-to socket \
-        podman run \
-            --rm \
-            --env-host \
-            -v "$TMPDIR:$TMPDIR" \
-            -v "$TEST_DIR:$TEST_DIR" \
-            --userns=keep-id \
-            --net=host --pid=host --ipc=host \
-            "$CONTAINER_IMAGE" \
-            /opt/ior/bin/ior -r -o $TEST_DIR/ior_testfile -t 1m -b 16m -s 16
+$MPIRUN $PODMAN_RUN /opt/ior/bin/ior -r -o $TEST_DIR/ior_testfile -t 1m -b 16m -s 16
 
 
 echo "========================================="
 echo "MDTEST"
 echo "========================================="
 
-    mpirun -np $SLURM_NTASKS \
-        --mca orte_tmpdir_base "$TMPDIR" \
-        --bind-to socket \
-        podman run \
-            --rm \
-            --env-host \
-            -v "$TMPDIR:$TMPDIR" \
-            -v "$TEST_DIR:$TEST_DIR" \
-            --userns=keep-id \
-            --net=host --pid=host --ipc=host \
-            "$CONTAINER_IMAGE" \
-            /opt/ior/bin/mdtest -d $TEST_DIR/mdtest -n 1000 -i 3 -u -L -F
+$MPIRUN $PODMAN_RUN /opt/ior/bin/mdtest -d $TEST_DIR/mdtest -n 1000 -i 3 -u -L -F
 
 bench_end
 echo ""
