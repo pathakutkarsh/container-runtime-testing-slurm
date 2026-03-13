@@ -2,6 +2,7 @@
 #SBATCH --job-name=apptainer_benchmark
 #SBATCH --nodes=2
 #SBATCH --ntasks=2
+#SBATCH --ntasks-per-node=1
 #SBATCH --time=00:30:00
 #SBATCH --output=./../results/apptainer_osu_benchmark_%j.out
 
@@ -14,7 +15,7 @@ source ./bench_lib.sh
 
 MPIRUN="mpirun \
     --np 2 \
-    --bind-to core \
+    --bind-to socket \
     --mca btl self,tcp"
 
 APPTAINER_RUN="apptainer exec \

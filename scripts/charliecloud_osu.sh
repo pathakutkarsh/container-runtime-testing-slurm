@@ -2,6 +2,7 @@
 #SBATCH --job-name=charlecloud_osu
 #SBATCH --nodes=2
 #SBATCH --ntasks=2
+#SBATCH --ntasks-per-node=1
 #SBATCH --time=00:30:00
 #SBATCH --output=./../results/charliecloud_osu_benchmark_%j.out
 
@@ -11,7 +12,7 @@ source ./bench_lib.sh
 
 MPIRUN="mpirun \
     --np 2 \
-    --bind-to core \
+    --bind-to socket \
     --mca btl self,tcp"
 
 CHARLIECLOUD_RUN="ch-run $BASE_DIR/charliecloud/osu-benchmarks --"
