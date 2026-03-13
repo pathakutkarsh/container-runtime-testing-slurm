@@ -10,8 +10,8 @@ CONTAINER_IMAGE="localhost/ior-benchmark:latest"
 
 BASE_DIR=$(pwd)/..
 
-TEST_DIR="${BASE_DIR}/ior-${SLURM_JOB_ID}"
-TMPDIR="${BASE_DIR}/podman-mpirun-${SLURM_JOB_ID}"
+TEST_DIR=$BASE_DIR/ior-${SLURM_JOB_ID}
+TMPDIR=$BASE_DIR/podman-mpirun-$SLURM_JOB_ID
 
 mkdir -p "$TEST_DIR"
 mkdir -p "$TMPDIR"
