@@ -8,11 +8,11 @@
 # Create test directory
 CONTAINER_IMAGE="localhost/ior-benchmark:latest"
 
-TMPDIR="/tmp/podman-mpirun-${SLURM_JOB_ID}"
+BASE_DIR=$(pwd)/..
+TMPDIR="$BASE_DIR/podman-mpirun-${SLURM_JOB_ID}"
 mkdir -p "$TMPDIR"
 
-BASE_DIR=$(pwd)/..
-TEST_DIR="/tmp/ior-${SLURM_JOB_ID}"
+TEST_DIR="$BASE_DIR/ior-${SLURM_JOB_ID}"
 mkdir -p "$TEST_DIR"
 
 MPIRUN="mpirun \
