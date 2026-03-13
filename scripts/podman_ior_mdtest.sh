@@ -10,8 +10,8 @@ CONTAINER_IMAGE="localhost/ior-benchmark:latest"
 
 BASE_DIR=$(pwd)/..
 
-TMPDIR="/tmp/podman-mpirun-${SLURM_JOB_ID}"
-mkdir -p "$TMPDIR"
+# TMPDIR="/tmp/podman-mpirun-${SLURM_JOB_ID}"
+# mkdir -p "$TMPDIR"
 
 TEST_DIR="$BASE_DIR/ior-${SLURM_JOB_ID}"
 
@@ -22,14 +22,12 @@ sleep 2
 
 MPIRUN="mpirun \
     --map-by ppr:4:node \
-    --mca orte_tmpdir_base "$TMPDIR" \
     --mca btl self,tcp \
     --bind-to socket"
 
 PODMAN_RUN="podman run \
             --rm \
             --env-host \
-            -v "$TMPDIR:$TMPDIR" \
             -v "$TEST_DIR:$TEST_DIR" \
             --userns=keep-id \
             --net=host --pid=host --ipc=host \
