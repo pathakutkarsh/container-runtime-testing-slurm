@@ -10,16 +10,15 @@ CONTAINER_IMAGE="localhost/ior-benchmark:latest"
 
 BASE_DIR=$(pwd)/..
 
-TMPDIR=$BASE_DIR/podman-mpirun-${SLURM_JOB_ID}
+TMPDIR="$BASE_DIR/podman-mpirun-${SLURM_JOB_ID}"
 mkdir -p "$TMPDIR"
 
-TEST_DIR=$BASE_DIR/ior-${SLURM_JOB_ID}
+TEST_DIR="$BASE_DIR/ior-${SLURM_JOB_ID}"
 
 mkdir -p "$TEST_DIR"
 
 MPIRUN="mpirun \
     --map-by ppr:4:node \
-    --mca orte_tmpdir_base "$TMPDIR" \
     --mca btl self,tcp \
     --bind-to socket"
 
