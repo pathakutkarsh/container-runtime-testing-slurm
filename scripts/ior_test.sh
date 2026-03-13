@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=ior_benchmark
 #SBATCH --nodes=2
-#SBATCH --ntasks=4
+#SBATCH --ntasks-per-node=4
 #SBATCH --time=00:30:00
 #SBATCH --output=./../results/ior_results_%j.out
 
