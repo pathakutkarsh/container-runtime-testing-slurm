@@ -1,3 +1,3 @@
 job_id,label,node,wall_clock_s,peak_cpu_percent,avg_cpu_percent,peak_mem_used_kb,exit_status,timestamp
-285,apptainer_osu,slurm-worker-node-01,1723.848,49,25,584292,0,2026-03-13T15:29:06+01:00
-285,apptainer_osu,slurm-worker-node-02,1723.848,36,24,587288,0,2026-03-13T15:29:06+01:00
+310,apptainer_osu,slurm-worker-node-01,1727.818,40,25,527224,0,2026-03-14T16:37:52+01:00
+310,apptainer_osu,slurm-worker-node-02,1727.818,36,24,513764,0,2026-03-14T16:37:52+01:00
