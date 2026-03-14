@@ -1,0 +1,131 @@
+Node List
+slurm-worker-node-01
+[bench_lib] Started collector on slurm-worker-node-01 (pid 782596)
+[bench_lib] Started collector on slurm-worker-node-02 (pid 782597)
+[bench_lib] Benchmark started: label=charliecloud_ior, job=306
+[bench_lib] Nodes: slurm-worker-node-01 slurm-worker-node-02
+=========================================
+IOR WRITE TEST 
+=========================================
+IOR-3.3.0: MPI Coordinated Test of Parallel I/O
+Began               : Fri Mar 13 19:42:16 2026
+Command line        : /opt/ior/bin/ior -a POSIX -w -k -o /mnt/ior_testfile -b 128m -t 512k -s 8 -C -Q 1
+Machine             : Linux slurm-worker-node-01
+TestID              : 0
+StartTime           : Fri Mar 13 19:42:16 2026
+Path                : /mnt
+FS                  : 78.6 GiB   Used FS: 33.3%   Inodes: 5.0 Mi   Used Inodes: 9.3%
+
+Options: 
+api                 : POSIX
+apiVersion          : 
+test filename       : /mnt/ior_testfile
+access              : single-shared-file
+type                : independent
+segments            : 8
+ordering in a file  : sequential
+ordering inter file : constant task offset
+task offset         : 1
+nodes               : 2
+tasks               : 8
+clients per node    : 4
+repetitions         : 1
+xfersize            : 524288 bytes
+blocksize           : 128 MiB
+aggregate filesize  : 8 GiB
+
+Results: 
+
+access    bw(MiB/s)  IOPS       Latency(s)  block(KiB) xfer(KiB)  open(s)    wr/rd(s)   close(s)   total(s)   iter
+------    ---------  ----       ----------  ---------- ---------  --------   --------   --------   --------   ----
+write     23.66      63.35      0.050868    131072     512.00     0.140400   258.61     333.23     346.29     0   
+Max Write: 23.66 MiB/sec (24.81 MB/sec)
+
+Summary of all tests:
+Operation   Max(MiB)   Min(MiB)  Mean(MiB)     StdDev   Max(OPs)   Min(OPs)  Mean(OPs)     StdDev    Mean(s) Stonewall(s) Stonewall(MiB) Test# #Tasks tPN reps fPP reord reordoff reordrand seed segcnt   blksiz    xsize aggs(MiB)   API RefNum
+write          23.66      23.66      23.66       0.00      47.31      47.31      47.31       0.00  346.28609         NA            NA     0      8   4    1   0     1        1         0    0      8 134217728   524288    8192.0 POSIX      0
+Finished            : Fri Mar 13 19:48:02 2026
+=========================================
+IOR READ TEST 
+=========================================
+IOR-3.3.0: MPI Coordinated Test of Parallel I/O
+Began               : Fri Mar 13 19:48:04 2026
+Command line        : /opt/ior/bin/ior -a POSIX -r -o /mnt/ior_testfile -b 128m -t 512k -s 8 -C -Q 1
+Machine             : Linux slurm-worker-node-01
+TestID              : 0
+StartTime           : Fri Mar 13 19:48:04 2026
+Path                : /mnt
+FS                  : 78.6 GiB   Used FS: 43.5%   Inodes: 5.0 Mi   Used Inodes: 9.3%
+
+Options: 
+api                 : POSIX
+apiVersion          : 
+test filename       : /mnt/ior_testfile
+access              : single-shared-file
+type                : independent
+segments            : 8
+ordering in a file  : sequential
+ordering inter file : constant task offset
+task offset         : 1
+nodes               : 2
+tasks               : 8
+clients per node    : 4
+repetitions         : 1
+xfersize            : 524288 bytes
+blocksize           : 128 MiB
+aggregate filesize  : 8 GiB
+
+Results: 
+
+access    bw(MiB/s)  IOPS       Latency(s)  block(KiB) xfer(KiB)  open(s)    wr/rd(s)   close(s)   total(s)   iter
+------    ---------  ----       ----------  ---------- ---------  --------   --------   --------   --------   ----
+read      11.88      23.75      2.63        131072     512.00     0.001298   689.79     21.63      689.79     0   
+remove    -          -          -           -          -          -          -          -          0.798400   0   
+Max Read:  11.88 MiB/sec (12.45 MB/sec)
+
+Summary of all tests:
+Operation   Max(MiB)   Min(MiB)  Mean(MiB)     StdDev   Max(OPs)   Min(OPs)  Mean(OPs)     StdDev    Mean(s) Stonewall(s) Stonewall(MiB) Test# #Tasks tPN reps fPP reord reordoff reordrand seed segcnt   blksiz    xsize aggs(MiB)   API RefNum
+read           11.88      11.88      11.88       0.00      23.75      23.75      23.75       0.00  689.79088         NA            NA     0      8   4    1   0     1        1         0    0      8 134217728   524288    8192.0 POSIX      0
+Finished            : Fri Mar 13 19:59:34 2026
+=========================================
+MDTEST 
+=========================================
+-- started at 03/13/2026 19:59:35 --
+
+mdtest-3.3.0 was launched with 8 total task(s) on 2 node(s)
+Command line used: /opt/ior/bin/mdtest '-d' '/mnt/mdtest' '-n' '1000' '-i' '3' '-u' '-L' '-F'
+Path: /mnt
+FS: 78.6 GiB   Used FS: 33.3%   Inodes: 5.0 Mi   Used Inodes: 9.3%
+
+Nodemap: 11110000
+8 tasks, 8000 files
+
+SUMMARY rate: (of 3 iterations)
+   Operation                      Max            Min           Mean        Std Dev
+   ---------                      ---            ---           ----        -------
+   File creation             :        234.171        174.895        212.963         26.976
+   File stat                 :    1805251.296    1497150.828    1582051.724      70830.844
+   File read                 :       3168.967       3123.975       3142.873         18.395
+   File removal              :        190.852        160.717        179.677         13.477
+   Tree creation             :          6.659          5.136          6.015          0.643
+   Tree removal              :         16.630          9.824         14.281          3.153
+-- finished at 03/13/2026 20:03:53 --
+
+[bench_lib] Sent stop signal to slurm-worker-node-01
+[bench_lib] Sent stop signal to slurm-worker-node-02
+
+=======================================================
+ Benchmark Complete: charliecloud_ior
+=======================================================
+ Nodes collected  : 2 / 2
+ Wall clock       : 1298.017s
+ Exit status      : 0
+-------------------------------------------------------
+ Summary CSV      : /home/cloud/shared_dir/container-runtime-testing-slurm/scripts/../results/bench_results/charliecloud_ior_306/summary.csv
+ Timeseries CSVs  : /home/cloud/shared_dir/container-runtime-testing-slurm/scripts/../results/bench_results/charliecloud_ior_306/<node>_timeseries.csv
+ Sacct CSV        : /home/cloud/shared_dir/container-runtime-testing-slurm/scripts/../results/bench_results/charliecloud_ior_306/sacct.csv
+=======================================================
+
+=========================================
+Benchmark completed successfully.
+=========================================
