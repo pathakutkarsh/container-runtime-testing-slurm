@@ -7,20 +7,26 @@
 
 BASE_DIR=$(pwd)/..
 TEST_DIR=$BASE_DIR/ior_mdtest_charliecloud
+TMPDIR=/tmp/charliecloud-mpirun-$SLURM_JOB_ID
+
+mkdir -p "$TEST_DIR"
+mkdir -p "$TMPDIR"
+
 
 source ./bench_lib.sh
 
 MPIRUN="mpirun \
     --map-by ppr:4:node \
+    --mca orte_tmpdir_base $TMPDIR \
     --mca btl self,tcp \
     --bind-to socket"
 
 CHARLIECLOUD_RUN="ch-run \
                   -b $TEST_DIR:/mnt \
+                  -b $TMPDIR:$TMPDIR \
                   $BASE_DIR/charliecloud/ior_mdtest_charliecloud --"
 
 
-mkdir -p "$TEST_DIR"
 
 bench_start charliecloud_ior
 
