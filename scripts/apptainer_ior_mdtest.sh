@@ -8,22 +8,18 @@
 BASE_DIR=$(pwd)/..
 CONTAINER=$BASE_DIR/apptainer/ior.sif
 TEST_DIR=$BASE_DIR/ior_mdtest_apptainer
-TMPDIR=/tmp/apptainer-mpirun-$SLURM_JOB_ID 
 
 mkdir -p "$TEST_DIR"
-mkdir -p "$TMPDIR"
 
 source ./bench_lib.sh
 
 MPIRUN="mpirun \
     --map-by ppr:4:node \
-    --mca orte_tmpdir_base $TMPDIR \
     --mca btl self,tcp \
     --bind-to socket"
 
 APPTAINER_RUN="apptainer exec \
     --bind $BASE_DIR:$BASE_DIR \
-    --bind $TMPDIR:$TMPDIR \
     --bind $TEST_DIR:$TEST_DIR \
     $CONTAINER"
 
