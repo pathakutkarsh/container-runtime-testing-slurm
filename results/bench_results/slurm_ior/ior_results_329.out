@@ -1,20 +1,20 @@
 Node List
 slurm-worker-node-01
-[bench_lib] Started collector on slurm-worker-node-01 (pid 753063)
-[bench_lib] Started collector on slurm-worker-node-02 (pid 753064)
-[bench_lib] Benchmark started: label=slurm_ior, job=290
+[bench_lib] Started collector on slurm-worker-node-01 (pid 518758)
+[bench_lib] Started collector on slurm-worker-node-02 (pid 518759)
+[bench_lib] Benchmark started: label=slurm_ior, job=329
 [bench_lib] Nodes: slurm-worker-node-01 slurm-worker-node-02
 =========================================
 IOR Write Test
 =========================================
 IOR-4.1.0+dev: MPI Coordinated Test of Parallel I/O
-Began               : Fri Mar 13 16:58:54 2026
+Began               : Mon Mar 16 15:31:40 2026
 Command line        : ior -k -w -o /home/cloud/shared_dir/container-runtime-testing-slurm/scripts/../ior_test/ior_testfile -t 1m -b 16m -s 16
 Machine             : Linux slurm-worker-node-01
 TestID              : 0
-StartTime           : Fri Mar 13 16:58:54 2026
+StartTime           : Mon Mar 16 15:31:40 2026
 Path                : /home/cloud/shared_dir/container-runtime-testing-slurm/scripts/../ior_test/ior_testfile
-FS                  : 78.6 GiB   Used FS: 35.7%   Inodes: 5.0 Mi   Used Inodes: 9.3%
+FS                  : 78.6 GiB   Used FS: 33.6%   Inodes: 5.0 Mi   Used Inodes: 9.3%
 
 Options: 
 api                 : POSIX
@@ -37,28 +37,27 @@ blocksize           : 16 MiB
 aggregate filesize  : 2 GiB
 
 Results: 
-WARNING: The file "/home/cloud/shared_dir/container-runtime-testing-slurm/scripts/../ior_test/ior_testfile" exists already and will be deleted
 
 access    bw(MiB/s)  IOPS       Latency(s)  block(KiB) xfer(KiB)  open(s)    wr/rd(s)   close(s)   total(s)   iter
 ------    ---------  ----       ----------  ---------- ---------  --------   --------   --------   --------   ----
-write     23.81      3042.21    0.002370    16384      1024.00    0.135808   0.673196   85.44      86.02      0   
+write     23.58      2707.63    0.002193    16384      1024.00    0.156588   0.756380   86.27      86.87      0   
 
 Summary of all tests:
 Operation   Max(MiB)   Min(MiB)  Mean(MiB)     StdDev   Max(OPs)   Min(OPs)  Mean(OPs)     StdDev    Mean(s) Stonewall(s) Stonewall(MiB) Test# #Tasks tPN reps fPP reord reordoff reordrand seed segcnt   blksiz    xsize aggs(MiB)   API RefNum
-write          23.81      23.81      23.81       0.00      23.81      23.81      23.81       0.00   86.02394         NA            NA     0      8   4    1   0     0        1         0    0     16 16777216  1048576    2048.0 POSIX      0
-Finished            : Fri Mar 13 17:00:20 2026
+write          23.58      23.58      23.58       0.00      23.58      23.58      23.58       0.00   86.86744         NA            NA     0      8   4    1   0     0        1         0    0     16 16777216  1048576    2048.0 POSIX      0
+Finished            : Mon Mar 16 15:33:07 2026
 
 =========================================
 IOR Read Test
 =========================================
 IOR-4.1.0+dev: MPI Coordinated Test of Parallel I/O
-Began               : Fri Mar 13 17:00:21 2026
+Began               : Mon Mar 16 15:33:07 2026
 Command line        : ior -r -o /home/cloud/shared_dir/container-runtime-testing-slurm/scripts/../ior_test/ior_testfile -t 1m -b 16m -s 16
 Machine             : Linux slurm-worker-node-01
 TestID              : 0
-StartTime           : Fri Mar 13 17:00:21 2026
+StartTime           : Mon Mar 16 15:33:07 2026
 Path                : /home/cloud/shared_dir/container-runtime-testing-slurm/scripts/../ior_test/ior_testfile
-FS                  : 78.6 GiB   Used FS: 35.7%   Inodes: 5.0 Mi   Used Inodes: 9.3%
+FS                  : 78.6 GiB   Used FS: 36.1%   Inodes: 5.0 Mi   Used Inodes: 9.3%
 
 Options: 
 api                 : POSIX
@@ -84,16 +83,16 @@ Results:
 
 access    bw(MiB/s)  IOPS       Latency(s)  block(KiB) xfer(KiB)  open(s)    wr/rd(s)   close(s)   total(s)   iter
 ------    ---------  ----       ----------  ---------- ---------  --------   --------   --------   --------   ----
-read      11.83      11.83      0.638519    16384      1024.00    0.001801   173.14     9.68       173.14     0   
+read      11.83      11.83      0.675513    16384      1024.00    0.001765   173.15     4.56       173.15     0   
 
 Summary of all tests:
 Operation   Max(MiB)   Min(MiB)  Mean(MiB)     StdDev   Max(OPs)   Min(OPs)  Mean(OPs)     StdDev    Mean(s) Stonewall(s) Stonewall(MiB) Test# #Tasks tPN reps fPP reord reordoff reordrand seed segcnt   blksiz    xsize aggs(MiB)   API RefNum
-read           11.83      11.83      11.83       0.00      11.83      11.83      11.83       0.00  173.13771         NA            NA     0      8   4    1   0     0        1         0    0     16 16777216  1048576    2048.0 POSIX      0
-Finished            : Fri Mar 13 17:03:15 2026
+read           11.83      11.83      11.83       0.00      11.83      11.83      11.83       0.00  173.15013         NA            NA     0      8   4    1   0     0        1         0    0     16 16777216  1048576    2048.0 POSIX      0
+Finished            : Mon Mar 16 15:36:01 2026
 =========================================
 MDTEST (NFS)
 =========================================
--- started at 03/13/2026 17:03:15 --
+-- started at 03/16/2026 15:36:01 --
 
 mdtest-4.1.0+dev was launched with 8 total task(s) on 2 node(s)
 Command line used: mdtest '-d' '/home/cloud/shared_dir/container-runtime-testing-slurm/scripts/../ior_test/mdtest' '-n' '1000' '-i' '3' '-u' '-L' '-F'
@@ -107,27 +106,19 @@ WARNING: Read bytes is 0, thus, a read test will actually just open/close
 WARNING: Read bytes is 0, thus, a read test will actually just open/close
 Nodemap: 11110000
 Path                : /home/cloud/shared_dir/container-runtime-testing-slurm/scripts/../ior_test/mdtest
-FS                  : 78.6 GiB   Used FS: 33.2%   Inodes: 5.0 Mi   Used Inodes: 9.3%
+FS                  : 78.6 GiB   Used FS: 33.6%   Inodes: 5.0 Mi   Used Inodes: 9.3%
 8 tasks, 8000 files
-WARNING: unable to create tree directory '/home/cloud/shared_dir/container-runtime-testing-slurm/scripts/../ior_test/mdtest/test-dir.0-0/mdtest_tree.0.0/'
-WARNING: unable to create tree directory '/home/cloud/shared_dir/container-runtime-testing-slurm/scripts/../ior_test/mdtest/test-dir.0-0/mdtest_tree.2.0/'
-WARNING: unable to create tree directory '/home/cloud/shared_dir/container-runtime-testing-slurm/scripts/../ior_test/mdtest/test-dir.0-0/mdtest_tree.4.0/'
-WARNING: unable to create tree directory '/home/cloud/shared_dir/container-runtime-testing-slurm/scripts/../ior_test/mdtest/test-dir.0-0/mdtest_tree.3.0/'
-WARNING: unable to create tree directory '/home/cloud/shared_dir/container-runtime-testing-slurm/scripts/../ior_test/mdtest/test-dir.0-0/mdtest_tree.1.0/'
-WARNING: unable to create tree directory '/home/cloud/shared_dir/container-runtime-testing-slurm/scripts/../ior_test/mdtest/test-dir.0-0/mdtest_tree.7.0/'
-WARNING: unable to create tree directory '/home/cloud/shared_dir/container-runtime-testing-slurm/scripts/../ior_test/mdtest/test-dir.0-0/mdtest_tree.6.0/'
-WARNING: unable to create tree directory '/home/cloud/shared_dir/container-runtime-testing-slurm/scripts/../ior_test/mdtest/test-dir.0-0/mdtest_tree.5.0/'
 
 SUMMARY rate (in ops/sec): (of 3 iterations)
    Operation                     Max            Min           Mean        Std Dev
    ---------                     ---            ---           ----        -------
-   File creation                 244.196        202.461        229.392         23.361
-   File stat                 1369177.460    1032253.492    1173217.033     175065.511
-   File read                    3124.116       3035.698       3070.652         47.026
-   File removal                  235.702        200.772        213.273         19.467
-   Tree creation                 173.075          5.778         62.054         96.150
-   Tree removal                   11.529          7.713          9.954          1.994
--- finished at 03/13/2026 17:07:03 --
+   File creation                 265.671        225.490        250.827         22.051
+   File stat                 1432909.083    1100433.950    1321066.362     191079.372
+   File read                    3103.157       3060.173       3077.859         22.480
+   File removal                  251.996        221.499        234.550         15.716
+   Tree creation                  15.493          8.681         12.093          3.406
+   Tree removal                   13.330          4.279          7.909          4.784
+-- finished at 03/16/2026 15:39:30 --
 
 [bench_lib] Sent stop signal to slurm-worker-node-01
 [bench_lib] Sent stop signal to slurm-worker-node-02
@@ -136,12 +127,12 @@ SUMMARY rate (in ops/sec): (of 3 iterations)
  Benchmark Complete: slurm_ior
 =======================================================
  Nodes collected  : 2 / 2
- Wall clock       : 492.232s
+ Wall clock       : 472.951s
  Exit status      : 0
 -------------------------------------------------------
- Summary CSV      : /home/cloud/shared_dir/container-runtime-testing-slurm/scripts/../results/bench_results/slurm_ior_290/summary.csv
- Timeseries CSVs  : /home/cloud/shared_dir/container-runtime-testing-slurm/scripts/../results/bench_results/slurm_ior_290/<node>_timeseries.csv
- Sacct CSV        : /home/cloud/shared_dir/container-runtime-testing-slurm/scripts/../results/bench_results/slurm_ior_290/sacct.csv
+ Summary CSV      : /home/cloud/shared_dir/container-runtime-testing-slurm/scripts/../results/bench_results/slurm_ior_329/summary.csv
+ Timeseries CSVs  : /home/cloud/shared_dir/container-runtime-testing-slurm/scripts/../results/bench_results/slurm_ior_329/<node>_timeseries.csv
+ Sacct CSV        : /home/cloud/shared_dir/container-runtime-testing-slurm/scripts/../results/bench_results/slurm_ior_329/sacct.csv
 =======================================================
 
 =========================================

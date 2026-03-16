@@ -1,20 +1,20 @@
 Node List
 slurm-worker-node-01
-[bench_lib] Started collector on slurm-worker-node-01 (pid 769622)
-[bench_lib] Started collector on slurm-worker-node-02 (pid 769623)
-[bench_lib] Benchmark started: label=podman_ior, job=304
+[bench_lib] Started collector on slurm-worker-node-01 (pid 512856)
+[bench_lib] Started collector on slurm-worker-node-02 (pid 512857)
+[bench_lib] Benchmark started: label=podman_ior, job=328
 [bench_lib] Nodes: slurm-worker-node-01 slurm-worker-node-02
 =========================================
 IOR Write Test
 =========================================
 IOR-3.3.0: MPI Coordinated Test of Parallel I/O
-Began               : Fri Mar 13 17:25:56 2026
+Began               : Mon Mar 16 14:22:47 2026
 Command line        : /opt/ior/bin/ior -k -w -o /mnt/sharedir/ior_testfile -t 1m -b 16m -s 16
 Machine             : Linux slurm-worker-node-01
 TestID              : 0
-StartTime           : Fri Mar 13 17:25:56 2026
+StartTime           : Mon Mar 16 14:22:47 2026
 Path                : /mnt/sharedir
-FS                  : 78.6 GiB   Used FS: 33.2%   Inodes: 5.0 Mi   Used Inodes: 9.3%
+FS                  : 78.6 GiB   Used FS: 33.6%   Inodes: 5.0 Mi   Used Inodes: 9.3%
 
 Options: 
 api                 : POSIX
@@ -37,25 +37,25 @@ Results:
 
 access    bw(MiB/s)  IOPS       Latency(s)  block(KiB) xfer(KiB)  open(s)    wr/rd(s)   close(s)   total(s)   iter
 ------    ---------  ----       ----------  ---------- ---------  --------   --------   --------   --------   ----
-write     23.63      2636.96    0.037846    16384      1024.00    0.016471   0.776651   86.06      86.67      0   
-Max Write: 23.63 MiB/sec (24.78 MB/sec)
+write     23.77      2820.91    0.028315    16384      1024.00    0.122379   0.726006   85.69      86.17      0   
+Max Write: 23.77 MiB/sec (24.92 MB/sec)
 
 Summary of all tests:
 Operation   Max(MiB)   Min(MiB)  Mean(MiB)     StdDev   Max(OPs)   Min(OPs)  Mean(OPs)     StdDev    Mean(s) Stonewall(s) Stonewall(MiB) Test# #Tasks tPN reps fPP reord reordoff reordrand seed segcnt   blksiz    xsize aggs(MiB)   API RefNum
-write          23.63      23.63      23.63       0.00      23.63      23.63      23.63       0.00   86.67180         NA            NA     0      8   4    1   0     0        1         0    0     16 16777216  1048576    2048.0 POSIX      0
-Finished            : Fri Mar 13 17:27:23 2026
+write          23.77      23.77      23.77       0.00      23.77      23.77      23.77       0.00   86.16531         NA            NA     0      8   4    1   0     0        1         0    0     16 16777216  1048576    2048.0 POSIX      0
+Finished            : Mon Mar 16 14:24:13 2026
 
 =========================================
 IOR Read Test
 =========================================
 IOR-3.3.0: MPI Coordinated Test of Parallel I/O
-Began               : Fri Mar 13 17:27:27 2026
+Began               : Mon Mar 16 14:24:17 2026
 Command line        : /opt/ior/bin/ior -r -o /mnt/sharedir/ior_testfile -t 1m -b 16m -s 16
 Machine             : Linux slurm-worker-node-01
 TestID              : 0
-StartTime           : Fri Mar 13 17:27:27 2026
+StartTime           : Mon Mar 16 14:24:17 2026
 Path                : /mnt/sharedir
-FS                  : 78.6 GiB   Used FS: 35.7%   Inodes: 5.0 Mi   Used Inodes: 9.3%
+FS                  : 78.6 GiB   Used FS: 36.1%   Inodes: 5.0 Mi   Used Inodes: 9.3%
 
 Options: 
 api                 : POSIX
@@ -78,23 +78,23 @@ Results:
 
 access    bw(MiB/s)  IOPS       Latency(s)  block(KiB) xfer(KiB)  open(s)    wr/rd(s)   close(s)   total(s)   iter
 ------    ---------  ----       ----------  ---------- ---------  --------   --------   --------   --------   ----
-read      23.74      23.75      5.39        16384      1024.00    0.104736   86.25      86.12      86.25      0   
-remove    -          -          -           -          -          -          -          -          0.312561   0   
-Max Read:  23.74 MiB/sec (24.90 MB/sec)
+read      11.83      11.83      10.27       16384      1024.00    0.001585   173.09     10.58      173.09     0   
+remove    -          -          -           -          -          -          -          -          0.344194   0   
+Max Read:  11.83 MiB/sec (12.41 MB/sec)
 
 Summary of all tests:
 Operation   Max(MiB)   Min(MiB)  Mean(MiB)     StdDev   Max(OPs)   Min(OPs)  Mean(OPs)     StdDev    Mean(s) Stonewall(s) Stonewall(MiB) Test# #Tasks tPN reps fPP reord reordoff reordrand seed segcnt   blksiz    xsize aggs(MiB)   API RefNum
-read           23.74      23.74      23.74       0.00      23.74      23.74      23.74       0.00   86.25051         NA            NA     0      8   4    1   0     0        1         0    0     16 16777216  1048576    2048.0 POSIX      0
-Finished            : Fri Mar 13 17:28:53 2026
+read           11.83      11.83      11.83       0.00      11.83      11.83      11.83       0.00  173.09134         NA            NA     0      8   4    1   0     0        1         0    0     16 16777216  1048576    2048.0 POSIX      0
+Finished            : Mon Mar 16 14:27:11 2026
 =========================================
 MDTEST
 =========================================
--- started at 03/13/2026 17:28:58 --
+-- started at 03/16/2026 14:27:14 --
 
 mdtest-3.3.0 was launched with 8 total task(s) on 2 node(s)
 Command line used: /opt/ior/bin/mdtest '-d' '/mnt/sharedir/mdtest' '-n' '1000' '-i' '3' '-u' '-L' '-F'
 Path: /mnt/sharedir
-FS: 78.6 GiB   Used FS: 33.2%   Inodes: 5.0 Mi   Used Inodes: 9.3%
+FS: 78.6 GiB   Used FS: 33.6%   Inodes: 5.0 Mi   Used Inodes: 9.3%
 
 Nodemap: 11110000
 8 tasks, 8000 files
@@ -102,13 +102,13 @@ Nodemap: 11110000
 SUMMARY rate: (of 3 iterations)
    Operation                      Max            Min           Mean        Std Dev
    ---------                      ---            ---           ----        -------
-   File creation             :        254.854        218.073        242.509         17.268
-   File stat                 :    1964503.871     624275.743    1089350.296     341587.644
-   File read                 :       3319.020       3066.533       3187.632        103.122
-   File removal              :        253.146        222.148        233.868         13.733
-   Tree creation             :          9.566          7.168          8.031          1.088
-   Tree removal              :         10.313          7.023          8.668          1.343
--- finished at 03/13/2026 17:32:29 --
+   File creation             :        272.431        230.142        247.622         18.011
+   File stat                 :    2770270.153     558344.097    1200509.701     693501.425
+   File read                 :       3227.838       3069.385       3133.780         67.315
+   File removal              :        244.700        211.883        223.194         15.212
+   Tree creation             :          8.998          6.898          8.283          0.980
+   Tree removal              :         13.919          4.807          8.228          4.052
+-- finished at 03/16/2026 14:30:49 --
 
 [bench_lib] Sent stop signal to slurm-worker-node-01
 [bench_lib] Sent stop signal to slurm-worker-node-02
@@ -117,12 +117,12 @@ SUMMARY rate: (of 3 iterations)
  Benchmark Complete: podman_ior
 =======================================================
  Nodes collected  : 2 / 2
- Wall clock       : 399.591s
+ Wall clock       : 488.047s
  Exit status      : 0
 -------------------------------------------------------
- Summary CSV      : /home/cloud/shared_dir/container-runtime-testing-slurm/scripts/../results/bench_results/podman_ior_304/summary.csv
- Timeseries CSVs  : /home/cloud/shared_dir/container-runtime-testing-slurm/scripts/../results/bench_results/podman_ior_304/<node>_timeseries.csv
- Sacct CSV        : /home/cloud/shared_dir/container-runtime-testing-slurm/scripts/../results/bench_results/podman_ior_304/sacct.csv
+ Summary CSV      : /home/cloud/shared_dir/container-runtime-testing-slurm/scripts/../results/bench_results/podman_ior_328/summary.csv
+ Timeseries CSVs  : /home/cloud/shared_dir/container-runtime-testing-slurm/scripts/../results/bench_results/podman_ior_328/<node>_timeseries.csv
+ Sacct CSV        : /home/cloud/shared_dir/container-runtime-testing-slurm/scripts/../results/bench_results/podman_ior_328/sacct.csv
 =======================================================
 
 =========================================
