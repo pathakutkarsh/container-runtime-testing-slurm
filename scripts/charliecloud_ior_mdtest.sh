@@ -34,13 +34,13 @@ echo "========================================="
 echo "IOR WRITE TEST "
 echo "========================================="
 
-$MPIRUN $CHARLIECLOUD_RUN /opt/ior/bin/ior -a POSIX -w -k -o /mnt/ior_testfile -b 128m -t 512k -s 8 -C -Q 1
+$MPIRUN $CHARLIECLOUD_RUN /opt/ior/bin/ior -k -w -o /mnt/ior_testfile -t 1m -b 16m -s 16
 
 echo "========================================="
 echo "IOR READ TEST "
 echo "========================================="
 
-$MPIRUN $CHARLIECLOUD_RUN /opt/ior/bin/ior -a POSIX -r -o /mnt/ior_testfile -b 128m -t 512k -s 8 -C -Q 1
+$MPIRUN $CHARLIECLOUD_RUN /opt/ior/bin/ior -r -o /mnt/ior_testfile -t 1m -b 16m -s 16
 
 echo "========================================="
 echo "MDTEST "

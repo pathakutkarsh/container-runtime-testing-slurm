@@ -33,19 +33,19 @@ echo "========================================="
 echo "IOR WRITE TEST (Apptainer)"
 echo "========================================="
 $MPIRUN $APPTAINER_RUN \
-    ior -a POSIX -w -k -o $TEST_DIR/ior_testfile -b 128m -t 512k -s 8 -C -Q 1
+    ior -k -w -o $TEST_DIR/ior_testfile -t 1m -b 16m -s 16
 
 echo "========================================="
 echo "IOR READ TEST (Apptainer)"
 echo "========================================="
 $MPIRUN $APPTAINER_RUN \
-    ior -a POSIX -r -o $TEST_DIR/ior_testfile -b 128m -t 512k -s 8 -C -Q 1
+    ior -r -o $TEST_DIR/ior_testfile -t 1m -b 16m -s 16
 
 echo "========================================="
 echo "MDTEST (Apptainer)"
 echo "========================================="
 $MPIRUN $APPTAINER_RUN \
-    mdtest -d $TEST_DIR/mdtest -n 1000 -i 3 -u -L
+    mdtest -d $TEST_DIR/mdtest -n 1000 -i 3 -u -L -F
 
 bench_end
 
